@@ -1,0 +1,49 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - develop
+      - trunk
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Node cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-build-${{ hashFiles('package-lock.json') }}
+
+      - name: Composer cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            vendor
+            ~/.composer
+          key: ${{ runner.os }}-build-${{ hashFiles('composer.lock') }}
+
+      - name: Install node
+        run: npm install
+
+      - name: Install composer
+        run: composer install
+
+      - name: Lint style
+        run: npm run lint-style
+
+      - name: Lint JS
+        run: npm run lint-js
+
+      - name: Lint PHP
+        run: npm run lint-php
