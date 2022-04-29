@@ -24,7 +24,7 @@ jobs:
           files: |
             assets/css/*
             assets/js/*
-            "**/*.php
+            "**/*.php"
 
   lint:
     runs-on: ubuntu-latest
