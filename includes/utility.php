@@ -21,7 +21,6 @@ namespace SophiDebugBar\Utility;
  * @return string|array
  */
 function get_asset_info( $slug, $attribute = null ) {
-
 	if ( file_exists( SOPHI_DEBUG_BAR_PATH . 'dist/js/' . $slug . '.asset.php' ) ) {
 		$asset = require SOPHI_DEBUG_BAR_PATH . 'dist/js/' . $slug . '.asset.php';
 	} elseif ( file_exists( SOPHI_DEBUG_BAR_PATH . 'dist/css/' . $slug . '.asset.php' ) ) {

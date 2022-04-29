@@ -22,8 +22,8 @@ jobs:
         uses: tj-actions/changed-files@v18.7
         with:
           files: |
-            assets/css/*
-            assets/js/*
+            **/*.css
+            **.*.js
             **/*.php
 
   lint:

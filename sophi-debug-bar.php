@@ -28,7 +28,6 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/
 
 // Require Composer autoloader if it exists.
 if ( file_exists( SOPHI_DEBUG_BAR_PATH . 'vendor/autoload.php' ) ) {
-
 	require_once SOPHI_DEBUG_BAR_PATH . 'vendor/autoload.php';
 }
 
