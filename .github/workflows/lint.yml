@@ -10,9 +10,26 @@ on:
       - develop
 
 jobs:
+  changed-files:
+    name: Changed Files
+    outputs:
+      status: ${{ steps.changed-files.outputs.any_changed }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - id: changed-files
+        uses: tj-actions/changed-files@v18.7
+        with:
+          files: |
+            **/*.css
+            **.*.js
+            **/*.php
+
   lint:
     runs-on: ubuntu-latest
-
+    needs: changed-files
+    if: ${{ needs.changed-files.outputs.status == 'true' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
