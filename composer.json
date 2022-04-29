@@ -1,14 +1,10 @@
 {
-  "name": "10up/tenup-scaffold",
-  "description": "10up Plugin Scaffold",
+  "name": "10up/sophi-debug-bar",
   "type": "wordpress-plugin",
-  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "10up",
-      "email": "info@10up.com",
-      "homepage": "https://10up.com",
-			"role": "Developer"
+      "email": "info@10up.com"
     }
   ],
   "require": {
@@ -16,12 +12,10 @@
   },
   "autoload": {
     "psr-4": {
-      "TenUpScaffold\\": "includes/classes/"
+      "SophiDebugBar\\": "includes/classes/"
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "^8.2",
-    "10up/wp_mock": "dev-master",
     "10up/phpcs-composer": "dev-master"
   },
   "scripts": {
