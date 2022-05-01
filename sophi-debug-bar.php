@@ -40,4 +40,4 @@ register_activation_hook( __FILE__, '\SophiDebugBar\Core\activate' );
 register_deactivation_hook( __FILE__, '\SophiDebugBar\Core\deactivate' );
 
 // Bootstrap.
-SophiDebugBar\Core\setup();
+add_action( 'plugins_loaded', 'SophiDebugBar\Core\setup' );
