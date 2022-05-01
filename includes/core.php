@@ -7,6 +7,7 @@
 
 namespace SophiDebugBar\Core;
 
+use SophiDebugBar\Panel;
 use \WP_Error;
 use SophiDebugBar\Utility;
 
@@ -55,6 +56,8 @@ function setup() {
 	add_filter( 'mce_css', $n( 'mce_css' ) );
 	// Hook to allow async or defer on asset loading.
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
+
+	add_filter( 'debug_bar_panels', $n( 'add_panel' ) );
 
 	do_action( 'sophi_debug_bar_loaded' );
 }
@@ -323,4 +326,15 @@ function show_notices( $warnings = array(), $type = 'warning' ) {
 		</div>
 		<?php
 	}
+}
+
+/**
+ * Add Sophi to Debug Bar panels
+ *
+ * @param Debug_Bar_Panel[] $panels Debug Bar panels.
+ * @return Debug_Bar_Panel[]
+ */
+function add_panel( $panels = array() ) {
+	$panels[] = new Panel();
+	return $panels;
 }
