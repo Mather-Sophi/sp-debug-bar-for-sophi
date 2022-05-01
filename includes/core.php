@@ -21,6 +21,29 @@ function setup() {
 		return __NAMESPACE__ . "\\$function";
 	};
 
+	$errors   = array();
+	$warnings = array();
+
+	if ( ! defined( 'SOPHI_WP_VERSION' ) ) {
+		$warnings[] = __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'sophi-debug-bar' );
+	} elseif ( version_compare( SOPHI_WP_VERSION, '1.0.15', '<=' ) ) {
+		$warnings[] = __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'sophi-debug-bar' );
+	}
+
+	if ( ! class_exists( 'Debug_Bar' ) ) {
+		$errors[] = __( 'Sophi Debug Bar requires Debug Bar plugin', 'sophi-debug-bar' );
+	}
+
+	if ( ! empty( $warnings ) ) {
+		show_notices( $warnings );
+	}
+
+	if ( ! empty( $errors ) ) {
+		show_notices( $errors, 'error' );
+		// Stop plugin.
+		return;
+	}
+
 	add_action( 'init', $n( 'i18n' ) );
 	add_action( 'init', $n( 'init' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
@@ -261,7 +284,7 @@ function script_loader_tag( $tag, $handle ) {
 	}
 
 	if ( 'async' !== $script_execution && 'defer' !== $script_execution ) {
-		return $tag; // _doing_it_wrong()?
+		return $tag;
 	}
 
 	// Abort adding async/defer for scripts that have this script as a dependency. _doing_it_wrong()?
@@ -277,4 +300,27 @@ function script_loader_tag( $tag, $handle ) {
 	}
 
 	return $tag;
+}
+
+/**
+ * Display notices in admin area
+ *
+ * @param string[] $warnings Warnings list.
+ * @param string   $type Messages type.
+ * @return void
+ */
+function show_notices( $warnings = array(), $type = 'warning' ) {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	if ( ! empty( $warnings ) ) {
+		?>
+		<div class="notice notice-<?php echo esc_attr( $type ); ?> is-dismissible">
+			<?php foreach ( $warnings as $warning ) : ?>
+			<p><?php echo esc_html( $warning ); ?></p>	
+			<?php endforeach; ?>
+		</div>
+		<?php
+	}
 }
