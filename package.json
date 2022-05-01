@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "clean-dist": "rm -rf ./dist",
-    "build": "10up-toolkit build && npm run makepot",
+    "build": "composer install --no-dev && 10up-toolkit build && npm run makepot",
     "format-js": "10up-toolkit format-js",
     "lint-js": "10up-toolkit lint-js",
     "lint-php": "./vendor/bin/phpcs",
