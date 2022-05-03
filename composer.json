@@ -18,6 +18,20 @@
   "require-dev": {
     "10up/phpcs-composer": "dev-master"
   },
+  "archive": {
+	"name": "sophi-debug-bar",
+	"exclude": [
+		"/.*",
+		"/assets",
+		"!/dist",
+		"!/languages",
+		"/composer.json",
+		"/composer.lock",
+		"/package.json",
+		"/package-lock.json",
+		"/phpcs.xml"
+	]
+},
   "scripts": {
     "lint": "phpcs .",
     "lint-fix": "phpcbf ."

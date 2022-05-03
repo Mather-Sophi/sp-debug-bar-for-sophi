@@ -7,7 +7,6 @@
 
 namespace SophiDebugBar\Core;
 
-use SophiDebugBar\Panel;
 use \WP_Error;
 use SophiDebugBar\Utility;
 
