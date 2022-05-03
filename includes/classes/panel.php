@@ -5,14 +5,10 @@
  * @package SophiDebugBar
  */
 
-namespace SophiDebugBar;
-
-use WP_Http;
-
 /**
  * Sophi Panel class
  */
-class Panel extends \Debug_Bar_Panel {
+class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	/**
 	 * Sophi requests
 	 *
@@ -55,6 +51,52 @@ class Panel extends \Debug_Bar_Panel {
 			$classes[] = 'debug-bar-php-warning-summary';
 		}
 		return $classes;
+	}
+
+	/**
+	 * Display panel content
+	 *
+	 * @return void
+	 */
+	public function render() {
+		$requests = $this->requests;
+		$requests = get_transient( 'sophi_requests' );
+
+		if ( is_array( $requests ) && count( $requests ) > 0 ) {
+			echo '<div class="sophi-debug-bar-requests">';
+			$c = 0;
+			foreach ( $requests as $key => $request ) {
+				$c++;
+				?>
+				<div class="sophi-request" id="sophi-request-<?php echo esc_attr( $key ); ?>">
+					<div class="sophi-request-header">
+						<div class="sophi-request-header-item">
+							#<?php echo esc_html( $c ); ?>
+						</div>
+						<div class="sophi-request-header-item">
+							Response code: <?php echo esc_html( wp_remote_retrieve_response_code( $request['result'] ) ); ?>
+						</div>
+						<div class="sophi-request-header-item">
+							Duration: <?php echo esc_html( number_format( $request['time'] * 1000 ) ); ?> ms
+						</div>
+						<div class="sophi-request-header-item">
+							URL: <?php echo esc_html( $request['url'] ); ?>
+						</div>
+					</div>
+					<div class="sophi-request-details">
+						<div data-src="<?php echo esc_attr( $request['args']['body'] ); ?>" id="sophi-request-body-<?php echo esc_attr( $key ); ?>"></div>
+						<div data-src="<?php echo esc_attr( wp_remote_retrieve_body( $request['result'] ) ); ?>" id="sophi-response-body-<?php echo esc_attr( $key ); ?>"></div>
+					</div>
+				</div>
+				<?php
+			}
+			echo '</div>';
+		}
+
+		echo '<pre>';
+		print_r( $requests ); //phpcs:ignore
+		echo '</pre>';
+
 	}
 
 	/**
@@ -108,15 +150,21 @@ class Panel extends \Debug_Bar_Panel {
 		if ( isset( $this->requests[ $debug_id ] ) ) {
 			$this->requests[ $debug_id ]['result'] = $request;
 			$this->requests[ $debug_id ]['end']    = $end;
-			$this->requests[ $debug_id ]['time']   = $end - $start;
+
+			$this->requests[ $debug_id ]['time'] = $end - $this->requests[ $debug_id ]['start'];
 
 			$this->total_time += $this->requests[ $debug_id ]['time'];
 
 			if ( is_wp_error( $request ) ) {
 				$this->requests[ $debug_id ]['is_error'] = true;
 				$this->num_errors++;
+			} elseif ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
+				$this->requests[ $debug_id ]['is_error'] = true;
+				$this->num_errors++;
 			}
 		}
+
+		set_transient( 'sophi_requests', $this->requests, 3600 );
 
 		return $request;
 	}

@@ -26,8 +26,6 @@
   },
   "10up-toolkit": {
     "entry": {
-      "admin": "./assets/js/admin/admin.js",
-      "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js"
     }
   }

@@ -1,3 +1,3 @@
-import '../../css/shared/shared-style.css';
+import '../../css/shared/shared-style.scss';
 
 // import foo from './bar'

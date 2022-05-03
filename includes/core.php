@@ -335,6 +335,7 @@ function show_notices( $warnings = array(), $type = 'warning' ) {
  * @return Debug_Bar_Panel[]
  */
 function add_panel( $panels = array() ) {
-	$panels[] = new Panel();
+	require_once SOPHI_DEBUG_BAR_PATH . '/includes/classes/panel.php';
+	$panels[] = new \SophiDebugBarPanel();
 	return $panels;
 }
