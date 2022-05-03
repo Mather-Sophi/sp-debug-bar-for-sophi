@@ -165,14 +165,6 @@ function scripts() {
 		true
 	);
 
-	wp_enqueue_script(
-		'sophi_debug_bar_frontend',
-		script_url( 'frontend', 'frontend' ),
-		Utility\get_asset_info( 'frontend', 'dependencies' ),
-		SOPHI_DEBUG_BAR_VERSION,
-		true
-	);
-
 }
 
 /**
@@ -186,14 +178,6 @@ function admin_scripts() {
 		'sophi_debug_bar_shared',
 		script_url( 'shared', 'shared' ),
 		Utility\get_asset_info( 'shared', 'dependencies' ),
-		SOPHI_DEBUG_BAR_VERSION,
-		true
-	);
-
-	wp_enqueue_script(
-		'sophi_debug_bar_admin',
-		script_url( 'admin', 'admin' ),
-		Utility\get_asset_info( 'admin', 'dependencies' ),
 		SOPHI_DEBUG_BAR_VERSION,
 		true
 	);
@@ -214,22 +198,6 @@ function styles() {
 		SOPHI_DEBUG_BAR_VERSION
 	);
 
-	if ( is_admin() ) {
-		wp_enqueue_style(
-			'sophi_debug_bar_admin',
-			style_url( 'admin', 'admin' ),
-			array(),
-			SOPHI_DEBUG_BAR_VERSION
-		);
-	} else {
-		wp_enqueue_style(
-			'sophi_debug_bar_frontend',
-			style_url( 'frontend', 'frontend' ),
-			array(),
-			SOPHI_DEBUG_BAR_VERSION
-		);
-	}
-
 }
 
 /**
@@ -242,13 +210,6 @@ function admin_styles() {
 	wp_enqueue_style(
 		'sophi_debug_bar_shared',
 		style_url( 'shared', 'shared' ),
-		array(),
-		SOPHI_DEBUG_BAR_VERSION
-	);
-
-	wp_enqueue_style(
-		'sophi_debug_bar_admin',
-		style_url( 'admin', 'admin' ),
 		array(),
 		SOPHI_DEBUG_BAR_VERSION
 	);

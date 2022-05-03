@@ -60,7 +60,6 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	 */
 	public function render() {
 		$requests = $this->requests;
-		$requests = get_transient( 'sophi_requests' );
 
 		if ( is_array( $requests ) && count( $requests ) > 0 ) {
 			echo '<div class="sophi-debug-bar-requests">';
@@ -84,19 +83,24 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 						</div>
 					</div>
 					<div class="sophi-request-details">
-						<div data-src="<?php echo esc_attr( $request['args']['body'] ); ?>" id="sophi-request-body-<?php echo esc_attr( $key ); ?>"></div>
-						<div data-src="<?php echo esc_attr( wp_remote_retrieve_body( $request['result'] ) ); ?>" id="sophi-response-body-<?php echo esc_attr( $key ); ?>"></div>
+						<div>
+							<strong>Request</strong>
+							<div class="sophi-json-view" id="sophi-request-body-<?php echo esc_attr( $key ); ?>">
+								<?php echo esc_attr( $request['args']['body'] ); ?>
+							</div>
+						</div>
+						<div>
+							<strong>Response</strong>
+							<div class="sophi-json-view" id="sophi-response-body-<?php echo esc_attr( $key ); ?>">
+								<?php echo esc_attr( wp_remote_retrieve_body( $request['result'] ) ); ?>
+							</div>
+						</div>
 					</div>
 				</div>
 				<?php
 			}
 			echo '</div>';
 		}
-
-		echo '<pre>';
-		print_r( $requests ); //phpcs:ignore
-		echo '</pre>';
-
 	}
 
 	/**
@@ -163,8 +167,6 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 				$this->num_errors++;
 			}
 		}
-
-		set_transient( 'sophi_requests', $this->requests, 3600 );
 
 		return $request;
 	}
