@@ -4,3 +4,4 @@ languages/
 dist/
 sophi-debug-bar.zip
 sophi-debug-bar/
+.DS_Store
