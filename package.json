@@ -2,7 +2,7 @@
   "name": "sophi-debug-bar",
   "version": "0.1.0",
   "scripts": {
-    "archive": "composer install --no-dev && npm run build && composer archive --format=zip",
+    "archive": "composer install --no-dev && npm run build && composer archive --file=sophi-debug-bar -f zip",
     "clean-dist": "rm -rf ./dist",
     "build": "10up-toolkit build && npm run makepot",
     "format-js": "10up-toolkit format-js",
