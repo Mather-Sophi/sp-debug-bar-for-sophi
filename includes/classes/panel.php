@@ -96,9 +96,8 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 		$requests = $this->requests;
 		$history  = get_transient( 'sophi_debug_history' );
 
-		$history = array_reverse( $history );
-
 		if ( is_array( $history ) ) {
+			$history  = array_reverse( $history );
 			$requests = array_merge( $requests, $history );
 		}
 
