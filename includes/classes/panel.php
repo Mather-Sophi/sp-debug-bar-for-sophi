@@ -49,8 +49,12 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 		add_filter( 'sophi_request_args', array( $this, 'request_start' ), 10, 2 );
 		add_filter( 'sophi_request_result', array( $this, 'request_end' ), 10, 3 );
 
-		add_filter( 'sophi_tracking_request_data', array( $this, 'tracking_start' ), 10, 4 );
+		// Back compat until https://github.com/globeandmail/sophi-for-wordpress/pull/263 is merged.
+		add_filter( 'sophi_tracking_data', array( $this, 'tracking_start' ), 10, 4 );
 		add_action( 'sophi_tracking_result', array( $this, 'tracking_end' ), 10, 4 );
+
+		add_filter( 'sophi_cms_tracking_request_data', array( $this, 'tracking_start' ), 10, 4 );
+		add_action( 'sophi_cms_tracking_result', array( $this, 'tracking_end' ), 10, 4 );
 
 		add_filter( 'sophi_tracker_emitter_debug', '__return_true' );
 	}
@@ -209,6 +213,11 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	 * @return array
 	 */
 	public function tracking_start( $data, $tracker = null, $post = null, $action = '' ) {
+		// Exit early if called from other context.
+		if ( null === $tracker ) {
+			return $data;
+		}
+
 		$debug_id = $this->gen_hash();
 
 		$tracker->sophi_debug_id = $debug_id;
