@@ -5,6 +5,9 @@
  * @package SophiDebugBar
  */
 
+use SophiDebugBar\Event;
+use SophiDebugBar\Request;
+
 /**
  * Sophi Panel class
  */
@@ -12,7 +15,7 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	/**
 	 * Sophi requests
 	 *
-	 * @var array
+	 * @var SophiDebugBar\Item[]
 	 */
 	private $requests = array();
 
@@ -46,7 +49,7 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 		add_filter( 'sophi_request_args', array( $this, 'request_start' ), 10, 2 );
 		add_filter( 'sophi_request_result', array( $this, 'request_end' ), 10, 3 );
 
-		add_filter( 'sophi_tracking_data', array( $this, 'tracking_start' ), 10, 4 );
+		add_filter( 'sophi_tracking_request_data', array( $this, 'tracking_start' ), 10, 4 );
 		add_action( 'sophi_tracking_result', array( $this, 'tracking_end' ), 10, 4 );
 
 		add_filter( 'sophi_tracker_emitter_debug', '__return_true' );
@@ -87,6 +90,13 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	 */
 	public function render() {
 		$requests = $this->requests;
+		$history  = get_transient( 'sophi_debug_history' );
+
+		$history = array_reverse( $history );
+
+		if ( is_array( $history ) ) {
+			$requests = array_merge( $requests, $history );
+		}
 
 		if ( is_array( $requests ) && count( $requests ) > 0 ) {
 			echo '<div class="sophi-debug-bar-requests">';
@@ -100,26 +110,32 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 							#<?php echo esc_html( $c ); ?>
 						</div>
 						<div class="sophi-request-header-item">
-							Response code: <?php echo esc_html( wp_remote_retrieve_response_code( $request['result'] ) ); ?>
+							Response code: <?php echo esc_html( $request->get_response_code() ); ?>
 						</div>
 						<div class="sophi-request-header-item">
-							Duration: <?php echo esc_html( number_format( $request['time'] * 1000 ) ); ?> ms
+							Duration: <?php echo esc_html( number_format( $request->get_time() ) ); ?> ms
 						</div>
 						<div class="sophi-request-header-item">
-							URL: <?php echo esc_html( $request['url'] ); ?>
+							Context:
+							<?php
+							foreach ( $request->get_request_context_compact() as $context_key => $context_value ) {
+								echo '<span>' . esc_attr( $context_key ) . ':</span>';
+								echo esc_attr( var_export( $context_value ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
+							}
+							?>
 						</div>
 					</div>
 					<div class="sophi-request-details">
 						<div>
 							<strong>Request</strong>
 							<div class="sophi-json-view" id="sophi-request-body-<?php echo esc_attr( $key ); ?>">
-								<?php echo esc_attr( $request['args']['body'] ); ?>
+								<?php echo esc_attr( $request->get_request_body() ); ?>
 							</div>
 						</div>
 						<div>
 							<strong>Response</strong>
 							<div class="sophi-json-view" id="sophi-response-body-<?php echo esc_attr( $key ); ?>">
-								<?php echo esc_attr( wp_remote_retrieve_body( $request['result'] ) ); ?>
+								<?php echo esc_attr( $request->get_response_body() ); ?>
 							</div>
 						</div>
 					</div>
@@ -170,17 +186,15 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	 * @return array
 	 */
 	public function request_start( $args = array(), $url = '' ) {
-		$start    = microtime( true );
 		$debug_id = $this->gen_hash();
 
 		$args['sophi_debug_id'] = $debug_id;
 
-		$this->requests[ $debug_id ] = array(
-			'is_error' => false,
-			'start'    => $start,
-			'args'     => $args,
-			'url'      => $url,
-		);
+		$request = new Request();
+		$request->set_request( $args );
+		$request->set_request_context( array( 'url' => $url ) );
+
+		$this->requests[ $debug_id ] = $request;
 
 		return $args;
 	}
@@ -188,26 +202,35 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	/**
 	 * Start debugging Sophi tracking request
 	 *
-	 * @param array                    $data Data being send to tracking server.
+	 * @param array|string             $data Data being send to tracking server.
 	 * @param Snowplow\Tracker\Tracker $tracker Tracker.
 	 * @param WP_Post                  $post Post object.
 	 * @param string                   $action Tracking action. publish, update, delete or unpublish.
 	 * @return array
 	 */
-	public function tracking_start( $data, $tracker, $post = null, $action = '' ) {
-		$start    = microtime( true );
+	public function tracking_start( $data, $tracker = null, $post = null, $action = '' ) {
 		$debug_id = $this->gen_hash();
 
 		$tracker->sophi_debug_id = $debug_id;
 
-		$this->requests[ $debug_id ] = array(
-			'is_error' => false,
-			'type'     => 'tracking',
-			'start'    => $start,
-			'data'     => $data,
-			'post'     => $post,
-			'action'   => $action,
+		$event = new Event();
+
+		// Check if data is already a json string.
+		if ( is_string( $data ) && null !== json_decode( $data ) ) {
+			$body = $data;
+		} else {
+			$body = wp_json_encode( $data );
+		}
+
+		$event->set_request_body( $body );
+		$event->set_request_context(
+			array(
+				'post'   => $post,
+				'action' => $action,
+			)
 		);
+
+		$this->requests[ $debug_id ] = $event;
 
 		return $data;
 	}
@@ -230,30 +253,29 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 			// prior to this result, the debug ID was not assigned.
 			$debug_id = 'unhandled' . $this->gen_hash();
 
-			$this->requests[ $debug_id ] = array(
-				'is_error' => false,
-				'args'     => $args,
-				'url'      => $url,
-			);
+			$req = new Request();
+			$req->set_request( $args );
+			$req->set_request_context( array( 'url' => $url ) );
+
+			$this->requests[ $debug_id ] = $req;
 		}
 
 		if ( isset( $this->requests[ $debug_id ] ) ) {
-			$this->requests[ $debug_id ]['result'] = $request;
-			$this->requests[ $debug_id ]['end']    = $end;
+			$this->requests[ $debug_id ]->set_response( $request );
+			$this->requests[ $debug_id ]->set_end( $end );
 
-			$this->requests[ $debug_id ]['time'] = $end - $this->requests[ $debug_id ]['start'];
-
-			$this->total_time += $this->requests[ $debug_id ]['time'];
+			$this->total_time += $this->requests[ $debug_id ]->get_time();
 
 			if ( is_wp_error( $request ) ) {
-				$this->requests[ $debug_id ]['is_error'] = true;
+				$this->requests[ $debug_id ]->set_error( true );
 				$this->num_errors++;
 			} elseif ( 200 !== wp_remote_retrieve_response_code( $request ) ) {
-				$this->requests[ $debug_id ]['is_error'] = true;
+				$this->requests[ $debug_id ]->set_error( true );
 				$this->num_errors++;
 			}
 		}
 
+		$this->save( $debug_id, $this->requests[ $debug_id ] );
 		$this->log( $this->requests[ $debug_id ] );
 
 		return $request;
@@ -274,7 +296,20 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 			$debug_id = $tracker->sophi_debug_id;
 		} else {
 			$debug_id = 'unhandled' . $this->gen_hash();
+
+			$event = new Event();
+			$event->set_request_body( $data );
+			$event->set_request_context(
+				array(
+					'post'   => $post,
+					'action' => $action,
+				)
+			);
+
+			$this->requests[ $debug_id ] = $event;
 		}
+
+		$this->requests[ $debug_id ]->set_end( $end );
 
 		$emitters = $tracker->returnEmitters();
 		$results  = array();
@@ -283,9 +318,45 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 			$results = array_merge( $results, $emitter->returnRequestResults() );
 		}
 
-		$this->requests[ $debug_id ]['results'] = $results;
+		$this->requests[ $debug_id ]->set_response( reset( $results ) );
 
+		$this->save( $debug_id, $this->requests[ $debug_id ] );
 		$this->log( $this->requests[ $debug_id ] );
+	}
+
+	/**
+	 * Save debug bar entries to database cache
+	 *
+	 * @param string             $key History key.
+	 * @param SophiDebugBar\Item $data History item.
+	 * @return void
+	 */
+	public function save( $key, $data ) {
+		$size    = apply_filters( 'sophi_debug_history_size', 10 );
+		$ttl     = apply_filters( 'sophi_debug_history_ttl', HOUR_IN_SECONDS );
+		$history = get_transient( 'sophi_debug_history' );
+		$expire  = time() - $ttl;
+
+		if ( is_array( $history ) ) {
+			// Remove expired items
+			foreach ( $history as $item_key => $item ) {
+				$end = $item->get_end();
+				if ( $end < $expire ) {
+					unset( $history[ $item_key ] );
+				}
+			}
+
+			$history[ $key ] = $data;
+
+			// Remove older item if size exceeds.
+			if ( count( $history ) > $size ) {
+				array_shift( $history );
+			}
+		} else {
+			$history = array( $key => $data );
+		}
+
+		set_transient( 'sophi_debug_history', $history, $ttl );
 	}
 }
 
