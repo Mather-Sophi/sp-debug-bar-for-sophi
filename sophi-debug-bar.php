@@ -20,6 +20,7 @@ define( 'SOPHI_DEBUG_BAR_VERSION', '0.1.0' );
 define( 'SOPHI_DEBUG_BAR_URL', plugin_dir_url( __FILE__ ) );
 define( 'SOPHI_DEBUG_BAR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SOPHI_DEBUG_BAR_INC', SOPHI_DEBUG_BAR_PATH . 'includes/' );
+define( 'SOPHI_DEBUG_BAR_LOG_PATH', path_join( ABSPATH, WP_CONTENT_DIR . '/sophi-logs' ) );
 
 if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && file_exists( __DIR__ . '/dist/fast-refresh.php' ) ) {
 	require_once __DIR__ . '/dist/fast-refresh.php';

@@ -9,7 +9,7 @@ namespace SophiDebugBar\Core;
 
 use \WP_Error;
 use SophiDebugBar\Utility;
-
+use SophiDebugBarPanel;
 
 /**
  * Default setup routine
@@ -43,6 +43,9 @@ function setup() {
 		// Stop plugin.
 		return;
 	}
+
+	// Early initialization of the panel before main debug bar plugin.
+	require_once SOPHI_DEBUG_BAR_PATH . '/includes/classes/panel.php';
 
 	add_action( 'init', $n( 'i18n' ) );
 	add_action( 'init', $n( 'init' ) );
@@ -295,7 +298,6 @@ function show_notices( $warnings = array(), $type = 'warning' ) {
  * @return Debug_Bar_Panel[]
  */
 function add_panel( $panels = array() ) {
-	require_once SOPHI_DEBUG_BAR_PATH . '/includes/classes/panel.php';
-	$panels[] = new \SophiDebugBarPanel();
+	$panels[] = SophiDebugBarPanel::instance();
 	return $panels;
 }
