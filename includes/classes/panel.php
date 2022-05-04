@@ -49,10 +49,6 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 		add_filter( 'sophi_request_args', array( $this, 'request_start' ), 10, 2 );
 		add_filter( 'sophi_request_result', array( $this, 'request_end' ), 10, 3 );
 
-		// Back compat until https://github.com/globeandmail/sophi-for-wordpress/pull/263 is merged.
-		add_filter( 'sophi_tracking_data', array( $this, 'tracking_start' ), 10, 4 );
-		add_action( 'sophi_tracking_result', array( $this, 'tracking_end' ), 10, 4 );
-
 		add_filter( 'sophi_cms_tracking_request_data', array( $this, 'tracking_start' ), 10, 4 );
 		add_action( 'sophi_cms_tracking_result', array( $this, 'tracking_end' ), 10, 4 );
 
