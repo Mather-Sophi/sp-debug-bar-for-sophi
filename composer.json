@@ -25,6 +25,7 @@
 		"/assets",
 		"!/dist",
 		"!/languages",
+		"!/vendor",
 		"/composer.json",
 		"/composer.lock",
 		"/package.json",
