@@ -78,6 +78,15 @@ class Item {
 	}
 
 	/**
+	 * Get start time
+	 *
+	 * @return float
+	 */
+	public function get_start() {
+		return $this->start;
+	}
+
+	/**
 	 * Set end time
 	 *
 	 * @param integer|float $end End timestamp

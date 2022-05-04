@@ -102,23 +102,27 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 			$c = 0;
 			foreach ( $requests as $key => $request ) {
 				$c++;
+				$row_class = $request->is_error() ? 'sophi-request-error' : '';
 				?>
-				<div class="sophi-request" id="sophi-request-<?php echo esc_attr( $key ); ?>">
+				<div class="sophi-request <?php echo esc_attr( $row_class ); ?>" id="sophi-request-<?php echo esc_attr( $key ); ?>">
 					<div class="sophi-request-header">
 						<div class="sophi-request-header-item">
-							#<?php echo esc_html( $c ); ?>
+							#<?php echo esc_html( $key ); ?>
+						</div>
+						<div class="sophi-request-header-item">
+							<?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $request->get_start() ) ); ?>
 						</div>
 						<div class="sophi-request-header-item">
 							Response code: <?php echo esc_html( $request->get_response_code() ); ?>
 						</div>
 						<div class="sophi-request-header-item">
-							Duration: <?php echo esc_html( number_format( $request->get_time() ) ); ?> ms
+							Duration: <?php echo esc_html( number_format( $request->get_time() * 1000 ) ); ?> ms
 						</div>
 						<div class="sophi-request-header-item">
 							Context:
 							<?php
 							foreach ( $request->get_request_context_compact() as $context_key => $context_value ) {
-								echo '<span>' . esc_attr( $context_key ) . ':</span>';
+								echo '<br><span>' . esc_attr( $context_key ) . ':</span> ';
 								echo esc_attr( var_export( $context_value ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_export
 							}
 							?>
