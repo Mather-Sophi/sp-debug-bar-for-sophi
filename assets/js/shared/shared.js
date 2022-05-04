@@ -2,7 +2,7 @@ import '../../css/shared/shared-style.scss';
 import ReactJson from 'react-json-view';
 import ReactDOM from 'react-dom';
 
-(function () {
+document.addEventListener('DOMContentLoaded', () => {
 	const jsonContainers = document.getElementsByClassName('sophi-json-view');
 
 	for (let i = 0; i < jsonContainers.length; i++) {
@@ -17,9 +17,10 @@ import ReactDOM from 'react-dom';
 					displayDataTypes={false}
 					enableClipboard={false}
 					quotesOnKeys={false}
+					collapsed
 				/>,
 				jsonContainer,
 			);
 		}
 	}
-})();
+});
