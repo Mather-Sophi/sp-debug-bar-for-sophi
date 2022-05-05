@@ -46,7 +46,7 @@ function setup() {
 	}
 
 	// Early initialization of the panel before main debug bar plugin.
-	require_once SOPHI_DEBUG_BAR_PATH . '/includes/classes/panel.php';
+	require_once SOPHI_DEBUG_BAR_PATH . '/includes/class-sophi-debug-bar-panel.php';
 
 	add_action( 'init', $n( 'i18n' ) );
 	add_action( 'init', $n( 'init' ) );
