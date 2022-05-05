@@ -7,6 +7,7 @@
 
 namespace SophiDebugBar\Core;
 
+use SophiDebugBar\Settings;
 use \WP_Error;
 use SophiDebugBar\Utility;
 use SophiDebugBarPanel;
@@ -62,6 +63,8 @@ function setup() {
 	add_filter( 'debug_bar_panels', $n( 'add_panel' ) );
 
 	do_action( 'sophi_debug_bar_loaded' );
+
+	new Settings();
 }
 
 /**

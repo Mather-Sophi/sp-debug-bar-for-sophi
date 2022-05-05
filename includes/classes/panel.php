@@ -7,6 +7,7 @@
 
 use SophiDebugBar\Event;
 use SophiDebugBar\Request;
+use SophiDebugBar\Settings;
 
 /**
  * Sophi Panel class
@@ -156,6 +157,11 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	 * @return void
 	 */
 	public function log( $object ) {
+		$settings = Settings::get_settings();
+		if ( 'yes' !== $settings['enable_debug_log'] ) {
+			return;
+		}
+
 		$date     = date_i18n( 'Y-m-d' );
 		$filename = SOPHI_DEBUG_BAR_LOG_PATH . "/sophi-{$date}.log";
 
