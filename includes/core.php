@@ -23,9 +23,6 @@ function setup() {
 		return __NAMESPACE__ . "\\$function";
 	};
 
-	$errors   = array();
-	$warnings = array();
-
 	if ( ! defined( 'SOPHI_WP_VERSION' ) ) {
 		add_action( 'admin_notices', $n( 'warning_sophi_required' ) );
 	} elseif ( version_compare( SOPHI_WP_VERSION, '1.0.14', '<' ) ) {
