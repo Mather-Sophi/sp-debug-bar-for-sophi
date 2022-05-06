@@ -9,6 +9,8 @@ namespace SophiDebugBar;
 
 use SophiDebugBar\Log;
 
+use const SophiWP\Settings\SETTINGS_GROUP;
+
 use function SophiWP\Settings\get_sophi_settings;
 
 /**
@@ -16,15 +18,13 @@ use function SophiWP\Settings\get_sophi_settings;
  */
 class Settings {
 
-	const SETTINGS_GROUP = 'sophi_settings';
-
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'fields' ), 20 );
 
-		add_filter( 'sanitize_option_{self::SETTINGS_GROUP}', array( $this, 'sanitize' ), 10, 2 );
+		add_filter( 'sanitize_option_' . SETTINGS_GROUP, array( $this, 'sanitize' ), 10, 2 );
 	}
 
 	/**
@@ -37,14 +37,14 @@ class Settings {
 			'debug',
 			__( 'Debug', 'sophi-debug-bar' ),
 			'',
-			self::SETTINGS_GROUP
+			SETTINGS_GROUP
 		);
 
 		add_settings_field(
 			'enable_debug_log',
 			__( 'Debug log', 'sophi-debug-bar' ),
 			array( $this, 'render_debug_log_field' ),
-			self::SETTINGS_GROUP,
+			SETTINGS_GROUP,
 			'debug'
 		);
 	}
@@ -113,7 +113,7 @@ class Settings {
 	 * @return array
 	 */
 	public function sanitize( $value, $option ) {
-		if ( self::SETTINGS_GROUP !== $option ) {
+		if ( SETTINGS_GROUP !== $option ) {
 			return $value;
 		}
 
