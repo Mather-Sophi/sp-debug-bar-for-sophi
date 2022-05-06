@@ -3,6 +3,8 @@
 /.github export-ignore
 /.husky export-ignore
 /.wordpress-org export-ignore
+/node_modules export-ignore
+/vendor/bin export-ignore
 
 # Files
 /.editorconfig export-ignore
@@ -24,4 +26,3 @@
 /package.json export-ignore
 /phpcs.xml export-ignore
 /README.md export-ignore
-/node_modules export-ignore
