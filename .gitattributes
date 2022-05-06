@@ -24,3 +24,4 @@
 /package.json export-ignore
 /phpcs.xml export-ignore
 /README.md export-ignore
+/node_modules export-ignore
