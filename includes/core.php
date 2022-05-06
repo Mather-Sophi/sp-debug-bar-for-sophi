@@ -27,21 +27,13 @@ function setup() {
 	$warnings = array();
 
 	if ( ! defined( 'SOPHI_WP_VERSION' ) ) {
-		$warnings[] = __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'sophi-debug-bar' );
+		add_action( 'admin_notices', $n( 'warning_sophi_required' ) );
 	} elseif ( version_compare( SOPHI_WP_VERSION, '1.0.14', '<' ) ) {
-		$warnings[] = __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'sophi-debug-bar' );
+		add_action( 'admin_notices', $n( 'warning_sophi_version' ) );
 	}
 
 	if ( ! class_exists( 'Debug_Bar' ) ) {
-		$errors[] = __( 'Sophi Debug Bar requires Debug Bar plugin', 'sophi-debug-bar' );
-	}
-
-	if ( ! empty( $warnings ) ) {
-		show_notices( $warnings );
-	}
-
-	if ( ! empty( $errors ) ) {
-		show_notices( $errors, 'error' );
+		add_action( 'admin_notices', $n( 'error_debug_bar_required' ) );
 		// Stop plugin.
 		return;
 	}
@@ -294,6 +286,33 @@ function show_notices( $warnings = array(), $type = 'warning' ) {
 		</div>
 		<?php
 	}
+}
+
+/**
+ * Display Sophi required warning
+ *
+ * @return void
+ */
+function warning_sophi_required() {
+	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'sophi-debug-bar' ) ) );
+}
+
+/**
+ * Display Sophi version warning
+ *
+ * @return void
+ */
+function warning_sophi_version() {
+	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'sophi-debug-bar' ) ) );
+}
+
+/**
+ * Display Debug Bar required error
+ *
+ * @return void
+ */
+function error_debug_bar_required() {
+	show_notices( array( __( 'Sophi Debug Bar requires Debug Bar plugin', 'sophi-debug-bar' ) ), 'error' );
 }
 
 /**
