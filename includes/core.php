@@ -11,6 +11,7 @@ use SophiDebugBar\Settings;
 use \WP_Error;
 use SophiDebugBar\Utility;
 use SophiDebugBarPanel;
+use SophiDebugBar\Log;
 
 /**
  * Default setup routine
@@ -95,6 +96,7 @@ function init() {
 function activate() {
 	// First load the init scripts in case any rewrite functionality is being loaded
 	init();
+	Log\setup();
 	flush_rewrite_rules();
 }
 

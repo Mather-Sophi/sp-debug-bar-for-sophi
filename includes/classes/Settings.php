@@ -7,6 +7,8 @@
 
 namespace SophiDebugBar;
 
+use SophiDebugBar\Log;
+
 use function SophiWP\Settings\get_sophi_settings;
 
 /**
@@ -69,9 +71,36 @@ class Settings {
 	 */
 	public function render_debug_log_field() {
 		$settings = $this->get_settings();
+
+		if ( ! is_dir( SOPHI_DEBUG_BAR_LOG_PATH ) ) {
+			Log\setup();
+		}
+
+		$is_writable = wp_is_writable( SOPHI_DEBUG_BAR_LOG_PATH );
+
 		?>
-		<label for="sophi-settings-enable_debug_log"><input type="checkbox" id="sophi-settings-enable_debug_log" class="" name="sophi_settings[enable_debug_log]" value="yes" <?php checked( 'yes' === $settings['enable_debug_log'] ); ?>> <?php esc_html_e( 'Enable debug log' ); ?></label>
+		<label for="sophi-settings-enable_debug_log">
+			<input
+				type="checkbox"
+				id="sophi-settings-enable_debug_log"
+				name="sophi_settings[enable_debug_log]"
+				value="yes"
+				<?php checked( $is_writable && 'yes' === $settings['enable_debug_log'] ); ?>
+				<?php disabled( ! $is_writable ); ?>
+			/>
+			<?php esc_html_e( 'Enable debug log', 'sophi-debug-log' ); ?>
+		</label>
 		<?php
+
+		if ( ! $is_writable ) {
+			echo '<p class="description">';
+			echo sprintf(
+				/* translators: logs directory path */
+				wp_kses( 'The logs directory <code>%s</code> is not writable.', 'sophi-debug-log' ),
+				esc_attr( SOPHI_DEBUG_BAR_LOG_PATH )
+			);
+			echo '</p>';
+		}
 	}
 
 	/**

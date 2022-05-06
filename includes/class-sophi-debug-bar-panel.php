@@ -7,7 +7,7 @@
 
 use SophiDebugBar\Event;
 use SophiDebugBar\Request;
-use SophiDebugBar\Settings;
+use SophiDebugBar\Log;
 
 /**
  * Sophi Panel class
@@ -151,32 +151,6 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	}
 
 	/**
-	 * Write log
-	 *
-	 * @param mixed $object Object to log
-	 * @return void
-	 */
-	public function log( $object ) {
-		$settings = Settings::get_settings();
-		if ( 'yes' !== $settings['enable_debug_log'] ) {
-			return;
-		}
-
-		$date     = date_i18n( 'Y-m-d' );
-		$filename = SOPHI_DEBUG_BAR_LOG_PATH . "/sophi-{$date}.log";
-
-		if ( ! is_dir( SOPHI_DEBUG_BAR_LOG_PATH ) ) {
-			mkdir( SOPHI_DEBUG_BAR_LOG_PATH );
-		}
-
-		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r -- Wirting debug information.
-		$log = date_i18n( 'Y-m-d H:i:s' ) . "\n" . print_r( $object, true ) . "\n============\n";
-
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_read_file_put_contents -- Using to append file.
-		file_put_contents( $filename, $log, FILE_APPEND );
-	}
-
-	/**
 	 * Return random 8-char hash
 	 *
 	 * @return string
@@ -290,7 +264,7 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 		}
 
 		$this->save( $debug_id, $this->requests[ $debug_id ] );
-		$this->log( $this->requests[ $debug_id ] );
+		Log\log( $this->requests[ $debug_id ] );
 
 		return $request;
 	}
@@ -335,7 +309,7 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 		$this->requests[ $debug_id ]->set_response( reset( $results ) );
 
 		$this->save( $debug_id, $this->requests[ $debug_id ] );
-		$this->log( $this->requests[ $debug_id ] );
+		Log\log( $this->requests[ $debug_id ] );
 	}
 
 	/**
