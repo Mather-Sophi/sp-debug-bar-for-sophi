@@ -94,10 +94,12 @@ class Settings {
 
 		if ( ! $is_writable ) {
 			echo '<p class="description">';
-			echo sprintf(
-				/* translators: logs directory path */
-				wp_kses( 'The logs directory <code>%s</code> is not writable.', 'sophi-debug-log' ),
-				esc_attr( SOPHI_DEBUG_BAR_LOG_PATH )
+			echo wp_kses_post(
+				sprintf(
+					/* translators: logs directory path */
+					__( 'The logs directory <code>%s</code> is not writable.', 'sophi-debug-log' ),
+					esc_attr( SOPHI_DEBUG_BAR_LOG_PATH )
+				)
 			);
 			echo '</p>';
 		}
