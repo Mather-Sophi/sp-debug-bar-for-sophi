@@ -28,7 +28,7 @@ function setup() {
 
 	if ( ! defined( 'SOPHI_WP_VERSION' ) ) {
 		$warnings[] = __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'sophi-debug-bar' );
-	} elseif ( version_compare( SOPHI_WP_VERSION, '1.0.15', '<=' ) ) {
+	} elseif ( version_compare( SOPHI_WP_VERSION, '1.0.14', '<' ) ) {
 		$warnings[] = __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'sophi-debug-bar' );
 	}
 
