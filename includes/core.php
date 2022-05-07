@@ -25,13 +25,15 @@ function setup() {
 
 	if ( ! defined( 'SOPHI_WP_VERSION' ) ) {
 		add_action( 'admin_notices', $n( 'warning_sophi_required' ) );
-	} elseif ( version_compare( SOPHI_WP_VERSION, '1.0.14', '<' ) ) {
+		// Stop plugin.
+		return;
+	} elseif ( version_compare( SOPHI_WP_VERSION, '1.1.0', '<' ) ) {
 		add_action( 'admin_notices', $n( 'warning_sophi_version' ) );
+		return;
 	}
 
 	if ( ! class_exists( 'Debug_Bar' ) ) {
 		add_action( 'admin_notices', $n( 'error_debug_bar_required' ) );
-		// Stop plugin.
 		return;
 	}
 
