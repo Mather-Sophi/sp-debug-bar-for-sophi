@@ -4,7 +4,7 @@
   "authors": [
     {
       "name": "10up",
-      "email": "info@10up.com"
+      "email": "opensource@10up.com"
     }
   ],
   "require": {
@@ -18,8 +18,29 @@
   "require-dev": {
     "10up/phpcs-composer": "dev-master"
   },
+  "archive": {
+	"name": "sophi-debug-bar",
+	"exclude": [
+		"/.*",
+		"/assets",
+		"!/dist",
+		"!/languages",
+		"!/vendor",
+		"/composer.json",
+		"/composer.lock",
+		"/node_modules",
+		"/package.json",
+		"/package-lock.json",
+		"/phpcs.xml"
+	]
+},
   "scripts": {
     "lint": "phpcs .",
     "lint-fix": "phpcbf ."
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
