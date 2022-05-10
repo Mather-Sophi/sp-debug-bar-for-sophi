@@ -7,9 +7,11 @@
 
 namespace SophiDebugBar\Core;
 
+use SophiDebugBar\Settings;
 use \WP_Error;
 use SophiDebugBar\Utility;
-
+use SophiDebugBarPanel;
+use SophiDebugBar\Log;
 
 /**
  * Default setup routine
@@ -20,6 +22,23 @@ function setup() {
 	$n = function( $function ) {
 		return __NAMESPACE__ . "\\$function";
 	};
+
+	if ( ! defined( 'SOPHI_WP_VERSION' ) ) {
+		add_action( 'admin_notices', $n( 'warning_sophi_required' ) );
+		// Stop plugin.
+		return;
+	} elseif ( version_compare( SOPHI_WP_VERSION, '1.1.0', '<' ) ) {
+		add_action( 'admin_notices', $n( 'warning_sophi_version' ) );
+		return;
+	}
+
+	if ( ! class_exists( 'Debug_Bar' ) ) {
+		add_action( 'admin_notices', $n( 'error_debug_bar_required' ) );
+		return;
+	}
+
+	// Early initialization of the panel before main debug bar plugin.
+	require_once SOPHI_DEBUG_BAR_PATH . '/includes/class-sophi-debug-bar-panel.php';
 
 	add_action( 'init', $n( 'i18n' ) );
 	add_action( 'init', $n( 'init' ) );
@@ -33,7 +52,11 @@ function setup() {
 	// Hook to allow async or defer on asset loading.
 	add_filter( 'script_loader_tag', $n( 'script_loader_tag' ), 10, 2 );
 
+	add_filter( 'debug_bar_panels', $n( 'add_panel' ) );
+
 	do_action( 'sophi_debug_bar_loaded' );
+
+	new Settings();
 }
 
 /**
@@ -64,6 +87,7 @@ function init() {
 function activate() {
 	// First load the init scripts in case any rewrite functionality is being loaded
 	init();
+	Log\setup();
 	flush_rewrite_rules();
 }
 
@@ -139,14 +163,6 @@ function scripts() {
 		true
 	);
 
-	wp_enqueue_script(
-		'sophi_debug_bar_frontend',
-		script_url( 'frontend', 'frontend' ),
-		Utility\get_asset_info( 'frontend', 'dependencies' ),
-		SOPHI_DEBUG_BAR_VERSION,
-		true
-	);
-
 }
 
 /**
@@ -160,14 +176,6 @@ function admin_scripts() {
 		'sophi_debug_bar_shared',
 		script_url( 'shared', 'shared' ),
 		Utility\get_asset_info( 'shared', 'dependencies' ),
-		SOPHI_DEBUG_BAR_VERSION,
-		true
-	);
-
-	wp_enqueue_script(
-		'sophi_debug_bar_admin',
-		script_url( 'admin', 'admin' ),
-		Utility\get_asset_info( 'admin', 'dependencies' ),
 		SOPHI_DEBUG_BAR_VERSION,
 		true
 	);
@@ -188,22 +196,6 @@ function styles() {
 		SOPHI_DEBUG_BAR_VERSION
 	);
 
-	if ( is_admin() ) {
-		wp_enqueue_style(
-			'sophi_debug_bar_admin',
-			style_url( 'admin', 'admin' ),
-			array(),
-			SOPHI_DEBUG_BAR_VERSION
-		);
-	} else {
-		wp_enqueue_style(
-			'sophi_debug_bar_frontend',
-			style_url( 'frontend', 'frontend' ),
-			array(),
-			SOPHI_DEBUG_BAR_VERSION
-		);
-	}
-
 }
 
 /**
@@ -216,13 +208,6 @@ function admin_styles() {
 	wp_enqueue_style(
 		'sophi_debug_bar_shared',
 		style_url( 'shared', 'shared' ),
-		array(),
-		SOPHI_DEBUG_BAR_VERSION
-	);
-
-	wp_enqueue_style(
-		'sophi_debug_bar_admin',
-		style_url( 'admin', 'admin' ),
 		array(),
 		SOPHI_DEBUG_BAR_VERSION
 	);
@@ -261,7 +246,7 @@ function script_loader_tag( $tag, $handle ) {
 	}
 
 	if ( 'async' !== $script_execution && 'defer' !== $script_execution ) {
-		return $tag; // _doing_it_wrong()?
+		return $tag;
 	}
 
 	// Abort adding async/defer for scripts that have this script as a dependency. _doing_it_wrong()?
@@ -277,4 +262,65 @@ function script_loader_tag( $tag, $handle ) {
 	}
 
 	return $tag;
+}
+
+/**
+ * Display notices in admin area
+ *
+ * @param string[] $warnings Warnings list.
+ * @param string   $type Messages type.
+ * @return void
+ */
+function show_notices( $warnings = array(), $type = 'warning' ) {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	if ( ! empty( $warnings ) ) {
+		?>
+		<div class="notice notice-<?php echo esc_attr( $type ); ?> is-dismissible">
+			<?php foreach ( $warnings as $warning ) : ?>
+			<p><?php echo esc_html( $warning ); ?></p>	
+			<?php endforeach; ?>
+		</div>
+		<?php
+	}
+}
+
+/**
+ * Display Sophi required warning
+ *
+ * @return void
+ */
+function warning_sophi_required() {
+	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'sophi-debug-bar' ) ) );
+}
+
+/**
+ * Display Sophi version warning
+ *
+ * @return void
+ */
+function warning_sophi_version() {
+	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'sophi-debug-bar' ) ) );
+}
+
+/**
+ * Display Debug Bar required error
+ *
+ * @return void
+ */
+function error_debug_bar_required() {
+	show_notices( array( __( 'Sophi Debug Bar requires Debug Bar plugin', 'sophi-debug-bar' ) ), 'error' );
+}
+
+/**
+ * Add Sophi to Debug Bar panels
+ *
+ * @param Debug_Bar_Panel[] $panels Debug Bar panels.
+ * @return Debug_Bar_Panel[]
+ */
+function add_panel( $panels = array() ) {
+	$panels[] = SophiDebugBarPanel::instance();
+	return $panels;
 }

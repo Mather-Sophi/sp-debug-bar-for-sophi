@@ -2,6 +2,7 @@
   "name": "sophi-debug-bar",
   "version": "0.1.0",
   "scripts": {
+    "archive": "composer install --no-dev && npm run build && composer archive --file=sophi-debug-bar -f zip",
     "clean-dist": "rm -rf ./dist",
     "build": "10up-toolkit build && npm run makepot",
     "format-js": "10up-toolkit format-js",
@@ -19,15 +20,15 @@
   "devDependencies": {
     "10up-toolkit": "^3.0.0",
     "husky": "^7.0.4",
-    "node-wp-i18n": "^1.2.6"
+    "node-wp-i18n": "^1.2.6",
+    "react-dom": "^18.1.0",
+    "react-json-view": "^1.21.3"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
   },
   "10up-toolkit": {
     "entry": {
-      "admin": "./assets/js/admin/admin.js",
-      "frontend": "./assets/js/frontend/frontend.js",
       "shared": "./assets/js/shared/shared.js"
     }
   }
