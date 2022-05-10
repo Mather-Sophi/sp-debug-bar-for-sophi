@@ -18,7 +18,7 @@ Extends the Debug Bar plugin for the Sophi.io service.  After installing and act
 
 * PHP 7.4+
 * WordPress 5.6+
-* [Sophi.io](https://wordpress.org/plugins/sophi/) 1.0.14+
+* [Sophi.io](https://wordpress.org/plugins/sophi/) 1.1.0+
 * [Debug Bar](https://wordpress.org/plugins/debug-bar/) 1.0+
 
 == Installation ==
@@ -28,11 +28,7 @@ Extends the Debug Bar plugin for the Sophi.io service.  After installing and act
 1. Install the Debug Bar for Sophi plugin via the plugin installer, either by searching for it or uploading a ZIP file.
 1. Activate the plugin.
 
-== Screenshots ==
-
-1. TBD
-
 == Changelog ==
 
-= 0.1.0 =
-* Initial plugin release.
+= 0.1.0 - 2022-05-10 =
+* Initial release of the Debug Bar for Sophi.io plugin. 🎉
