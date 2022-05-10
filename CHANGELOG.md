@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, per [the Ke
 
 ## [Unreleased] - TBD
 
-## [0.1.0] - 2022-05-06
+## [0.1.0] - 2022-05-10
 - Initial release of the Debug Bar for Sophi.io plugin. 🎉
 
 [Unreleased]: https://github.com/globeandmail/sophi-debug-bar/compare/trunk...develop

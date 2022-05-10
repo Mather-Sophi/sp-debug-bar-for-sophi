@@ -34,5 +34,5 @@ Extends the Debug Bar plugin for the Sophi.io service.  After installing and act
 
 == Changelog ==
 
-= 0.1.0 =
-* Initial plugin release.
+= 0.1.0 - 2022-05-10 =
+* Initial release of the Debug Bar for Sophi.io plugin. 🎉
