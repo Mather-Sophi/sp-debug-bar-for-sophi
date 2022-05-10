@@ -2,13 +2,15 @@
 
 > Extends the Debug Bar plugin for the Sophi.io service
 
-[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/globeandmail/sophi-debug-bar.svg)](https://github.com/globeandmail/sophi-debug-bar/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/sophi-debug-bar?color=blue&label=WordPress&logo=WordPress) [![GPL-2.0-or-later License](https://img.shields.io/github/license/globeandmail/sophi-debug-bar.svg)](https://github.com/globeandmail/sophi-debug-bar/blob/trunk/LICENSE.md)
+[![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/globeandmail/sophi-debug-bar.svg)](https://github.com/globeandmail/sophi-debug-bar/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/debug-bar-for-sophi?color=blue&label=WordPress&logo=WordPress) [![GPL-2.0-or-later License](https://img.shields.io/github/license/globeandmail/sophi-debug-bar.svg)](https://github.com/globeandmail/sophi-debug-bar/blob/trunk/LICENSE.md)
+
+[![Linting](https://github.com/10up/sophi-debug-bar/actions/workflows/lint.yml/badge.svg)](https://github.com/10up/sophi-debug-bar/actions/workflows/lint.yml) [![Dependency Review](https://github.com/10up/sophi-debug-bar/actions/workflows/dependency-review.yml/badge.svg)](https://github.com/10up/sophi-debug-bar/actions/workflows/dependency-review.yml)
 
 ## Requirements
 
 * PHP 7.4+
 * WordPress 5.6+
-* [Sophi.io](https://wordpress.org/plugins/sophi/) 1.0.14+
+* [Sophi.io](https://wordpress.org/plugins/sophi/) 1.1.0+
 * [Debug Bar](https://wordpress.org/plugins/debug-bar/) 1.0+
 
 ## Installation
