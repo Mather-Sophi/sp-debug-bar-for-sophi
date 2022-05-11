@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       Debug Bar for Sophi.io
+ * Plugin Name:       Debug Bar for Sophi
  * Plugin URI:        https://github.com/10up/sophi-debug-bar
- * Description:       Extends the Debug Bar plugin for the Sophi.io service.
+ * Description:       Extends the Debug Bar plugin for the Sophi.io Site Automation service.
  * Version:           0.1.0
  * Requires at least: 5.6
  * Requires PHP:      7.4

@@ -1,6 +1,28 @@
 {
-  "name": "sophi-debug-bar",
+  "name": "@globeandmail/sophi-debug-bar",
   "version": "0.1.0",
+  "description": "Extends the Debug Bar plugin for the Sophi.io Site Automation service.",
+  "homepage": "https://github.com/globeandmail/sophi-debug-bar",
+  "bugs": {
+    "url": "https://github.com/globeandmail/sophi-debug-bar/issues"
+  },
+  "license": "GPL-2.0-or-later",
+  "author": {
+    "name": "10up",
+    "email": "opensource@10up.com",
+    "url": "https://10up.com"
+  },
+  "contributors": [
+    {
+      "name": "The Globe and Mail",
+      "email": "info@sophi.io",
+      "url": "https://www.sophi.io"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/globeandmail/sophi-debug-bar"
+  },
   "scripts": {
     "archive": "composer install --no-dev && npm run build && composer archive --file=sophi-debug-bar -f zip",
     "clean-dist": "rm -rf ./dist",

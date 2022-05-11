@@ -1,12 +1,27 @@
 {
-  "name": "10up/sophi-debug-bar",
+  "name": "globeandmail/sophi-debug-bar",
+  "description": "Extends the Debug Bar plugin for the Sophi.io Site Automation service.",
   "type": "wordpress-plugin",
+  "homepage": "https://github.com/globeandmail/sophi-debug-bar",
+  "readme": "https://github.com/globeandmail/sophi-debug-bar/blob/develop/README.md",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "10up",
-      "email": "opensource@10up.com"
+      "email": "opensource@10up.com",
+	  "homepage": "https://10up.com",
+	  "role": "Developer"
+    },
+	{
+      "name": "The Globe and Mail",
+      "email": "info@sophi.io",
+      "homepage": "https://www.sophi.io",
+	  "role": "Developer"
     }
   ],
+  "support": {
+    "issues": "https://github.com/globeandmail/sophi-debug-bar/issues"
+  },
   "require": {
     "php": ">=7.0"
   },
