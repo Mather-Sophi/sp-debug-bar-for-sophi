@@ -1,6 +1,6 @@
-# Debug Bar for Sophi.io
+# Debug Bar for Sophi
 
-> Extends the Debug Bar plugin for the Sophi.io service
+> Extends the Debug Bar plugin for the Sophi.io Site Automation service.
 
 [![Support Level](https://img.shields.io/badge/support-active-green.svg)](#support-level) [![Release Version](https://img.shields.io/github/release/globeandmail/sophi-debug-bar.svg)](https://github.com/globeandmail/sophi-debug-bar/releases/latest) ![WordPress tested up to version](https://img.shields.io/wordpress/plugin/tested/debug-bar-for-sophi?color=blue&label=WordPress&logo=WordPress) [![GPL-2.0-or-later License](https://img.shields.io/github/license/globeandmail/sophi-debug-bar.svg)](https://github.com/globeandmail/sophi-debug-bar/blob/trunk/LICENSE.md)
 
@@ -10,19 +10,19 @@
 
 * PHP 7.4+
 * WordPress 5.6+
-* [Sophi.io](https://wordpress.org/plugins/sophi/) 1.1.0+
-* [Debug Bar](https://wordpress.org/plugins/debug-bar/) 1.0+
+* [Sophi](https://wordpress.org/plugins/sophi/) 1.1.0+
+* [Debug Bar](https://wordpress.org/plugins/debug-bar/) 1.0+ (note that this is already included on [WordPress VIP](https://wpvip.com/))
 
 ## Installation
 
-1. Install [Sophi.io](https://wordpress.org/plugins/sophi).
-1. Install [Debug Bar](https://wordpress.org/plugins/debug-bar/).
+1. Install the [Sophi](https://wordpress.org/plugins/sophi) plugin.
+1. Install the [Debug Bar](https://wordpress.org/plugins/debug-bar/) plugin.  Note that this is already included on [WordPress VIP](https://wpvip.com/).
 1. Install the Debug Bar for Sophi plugin via the plugin installer, either by searching for it or uploading a ZIP file.
-1. Activate the plugin.
+1. Activate all three plugins.
 
 ## Usage
 
-After installing and activating, click the `Debug` button in the admin toolbar.  Within the Debug Bar Panel, click the Sophi panel.
+After installing and activating, click the `Debug` button in the admin toolbar.  Within the Debug Bar Panel, click the `Sophi` panel.
 
 ## Support Level
 
