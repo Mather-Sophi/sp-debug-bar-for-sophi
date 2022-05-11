@@ -3,10 +3,15 @@
 /.github export-ignore
 /.husky export-ignore
 /.wordpress-org export-ignore
+/assets export-ignore
+/dist -export-ignore
+/languages -export-ignore
 /node_modules export-ignore
+/vendor -export-ignore
 /vendor/bin export-ignore
 
 # Files
+/.distignore export-ignore
 /.editorconfig export-ignore
 /.eslintignore export-ignore
 /.eslintrc.json export-ignore
