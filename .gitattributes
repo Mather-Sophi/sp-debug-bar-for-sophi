@@ -4,10 +4,10 @@
 /.husky export-ignore
 /.wordpress-org export-ignore
 /assets export-ignore
-/dist -export-ignore
-/languages -export-ignore
+/dist export-subst
+/languages export-subst
 /node_modules export-ignore
-/vendor -export-ignore
+/vendor export-subst
 /vendor/bin export-ignore
 
 # Files
