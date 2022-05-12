@@ -12,7 +12,6 @@
 /.editorconfig
 /.eslintignore
 /.eslintrc.json
-/.gitattributes
 /.gitignore
 /.lintstagedrc.json
 /.npmrc
@@ -28,4 +27,3 @@
 /package.json
 /phpcs.xml
 /README.md
-/*.zip
