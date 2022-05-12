@@ -23,7 +23,7 @@ jobs:
         with:
           files: |
             **/*.css
-            **.*.js
+            **/*.js
             **/*.php
 
   lint:
