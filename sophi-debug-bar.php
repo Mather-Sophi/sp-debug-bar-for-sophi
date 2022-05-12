@@ -42,5 +42,8 @@ require_once SOPHI_DEBUG_BAR_INC . '/log.php';
 register_activation_hook( __FILE__, '\SophiDebugBar\Core\activate' );
 register_deactivation_hook( __FILE__, '\SophiDebugBar\Core\deactivate' );
 
+// Activate Debug Bar on WP VIP.
+add_filter( 'debug_bar_enable', '__return_true' );
+
 // Bootstrap.
 add_action( 'init', 'SophiDebugBar\Core\setup' );
