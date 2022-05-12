@@ -40,8 +40,9 @@ function setup() {
 	// Early initialization of the panel before main debug bar plugin.
 	require_once SOPHI_DEBUG_BAR_PATH . '/includes/class-sophi-debug-bar-panel.php';
 
-	add_action( 'init', $n( 'i18n' ) );
-	add_action( 'init', $n( 'init' ) );
+	i18n();
+	init();
+
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
