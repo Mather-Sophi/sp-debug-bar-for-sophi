@@ -65,9 +65,7 @@ function setup() {
  * @return void
  */
 function i18n() {
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'sophi-debug-bar' );
-	load_textdomain( 'sophi-debug-bar', WP_LANG_DIR . '/sophi-debug-bar/sophi-debug-bar-' . $locale . '.mo' );
-	load_plugin_textdomain( 'sophi-debug-bar', false, plugin_basename( SOPHI_DEBUG_BAR_PATH ) . '/languages/' );
+	load_plugin_textdomain( 'debug-bar-for-sophi', false, plugin_basename( SOPHI_DEBUG_BAR_PATH ) . '/languages/' );
 }
 
 /**
@@ -293,7 +291,7 @@ function show_notices( $warnings = array(), $type = 'warning' ) {
  * @return void
  */
 function warning_sophi_required() {
-	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'sophi-debug-bar' ) ) );
+	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'debug-bar-for-sophi' ) ) );
 }
 
 /**
@@ -302,7 +300,7 @@ function warning_sophi_required() {
  * @return void
  */
 function warning_sophi_version() {
-	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'sophi-debug-bar' ) ) );
+	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'debug-bar-for-sophi' ) ) );
 }
 
 /**
@@ -311,7 +309,7 @@ function warning_sophi_version() {
  * @return void
  */
 function error_debug_bar_required() {
-	show_notices( array( __( 'Sophi Debug Bar requires Debug Bar plugin', 'sophi-debug-bar' ) ), 'error' );
+	show_notices( array( __( 'Sophi Debug Bar requires Debug Bar plugin', 'debug-bar-for-sophi' ) ), 'error' );
 }
 
 /**

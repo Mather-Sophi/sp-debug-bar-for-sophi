@@ -35,14 +35,14 @@ class Settings {
 	public function fields() {
 		add_settings_section(
 			'debug',
-			__( 'Debug', 'sophi-debug-bar' ),
+			__( 'Debug', 'debug-bar-for-sophi' ),
 			'',
 			SETTINGS_GROUP
 		);
 
 		add_settings_field(
 			'enable_debug_log',
-			__( 'Debug log', 'sophi-debug-bar' ),
+			__( 'Debug log', 'debug-bar-for-sophi' ),
 			array( $this, 'render_debug_log_field' ),
 			SETTINGS_GROUP,
 			'debug'

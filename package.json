@@ -31,7 +31,7 @@
     "lint-js": "10up-toolkit lint-js",
     "lint-php": "./vendor/bin/phpcs",
     "lint-style": "10up-toolkit lint-style",
-    "makepot": "wpi18n makepot --domain-path languages --pot-file sophi-debug-bar.pot --type plugin --main-file sophi-debug-bar.php --exclude bin,dist,node_modules,vendor",
+    "makepot": "wpi18n makepot --domain-path languages --pot-file debug-bar-for-sophi.pot --type plugin --main-file sophi-debug-bar.php --exclude bin,dist,node_modules,vendor",
     "prepare": "husky install",
     "start": "npm run watch",
     "watch": "10up-toolkit watch --port=5010 --hot"

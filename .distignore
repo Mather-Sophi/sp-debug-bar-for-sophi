@@ -1,0 +1,29 @@
+# Directories
+/.git
+/.github
+/.husky
+/.wordpress-org
+/assets
+/node_modules
+/vendor/bin
+
+# Files
+/.distignore
+/.editorconfig
+/.eslintignore
+/.eslintrc.json
+/.gitignore
+/.lintstagedrc.json
+/.npmrc
+/.nvmrc
+/CHANGELOG.md
+/CODE_OF_CONDUCT.md
+/composer.json
+/composer.lock
+/CONTRIBUTING.md
+/CREDITS.md
+/LICENSE.md
+/package-lock.json
+/package.json
+/phpcs.xml
+/README.md
