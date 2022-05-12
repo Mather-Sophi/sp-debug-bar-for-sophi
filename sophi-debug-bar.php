@@ -10,7 +10,7 @@
  * Author URI:        https://10up.com
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       sophi-debug-bar
+ * Text Domain:       debug-bar-for-sophi
  *
  * @package           SophiDebugBar
  */
@@ -42,5 +42,8 @@ require_once SOPHI_DEBUG_BAR_INC . '/log.php';
 register_activation_hook( __FILE__, '\SophiDebugBar\Core\activate' );
 register_deactivation_hook( __FILE__, '\SophiDebugBar\Core\deactivate' );
 
+// Activate Debug Bar on WP VIP.
+add_filter( 'debug_bar_enable', '__return_true' );
+
 // Bootstrap.
-add_action( 'plugins_loaded', 'SophiDebugBar\Core\setup' );
+add_action( 'init', 'SophiDebugBar\Core\setup' );
