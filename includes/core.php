@@ -43,6 +43,16 @@ function setup() {
 	i18n();
 	init();
 
+	$settings = Settings::get_settings();
+
+	if ( 'yes' === $settings['disable_sophi_caching'] ) {
+		// Disable caching of SophiWP\SiteAutomation\Request::get()
+		add_filter( 'sophi_bypass_get_cache', '__return_true' );
+
+		// Disable caching in SophiWP\Blocks\SiteAutomationBlock\render_block_callback()
+		add_filter( 'sophi_bypass_curated_posts_cache', '__return_true' );
+	}
+
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
