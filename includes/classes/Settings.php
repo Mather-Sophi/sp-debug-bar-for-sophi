@@ -47,6 +47,14 @@ class Settings {
 			SETTINGS_GROUP,
 			'debug'
 		);
+
+		add_settings_field(
+			'disable_sophi_caching',
+			__( 'Sophi caching', 'debug-bar-for-sophi' ),
+			array( $this, 'render_disable_sophi_caching' ),
+			SETTINGS_GROUP,
+			'debug'
+		);
 	}
 
 	/**
@@ -59,6 +67,10 @@ class Settings {
 
 		if ( ! isset( $settings['enable_debug_log'] ) ) {
 			$settings['enable_debug_log'] = 'no';
+		}
+
+		if ( ! isset( $settings['disable_sophi_caching'] ) ) {
+			$settings['disable_sophi_caching'] = 'no';
 		}
 
 		return $settings;
@@ -106,6 +118,28 @@ class Settings {
 	}
 
 	/**
+	 * Render debug log field
+	 *
+	 * @return void
+	 */
+	public function render_disable_sophi_caching() {
+		$settings = $this->get_settings();
+
+		?>
+		<label for="sophi-settings-disable_sophi_caching">
+			<input
+				type="checkbox"
+				id="sophi-settings-disable_sophi_caching"
+				name="sophi_settings[disable_sophi_caching]"
+				value="yes"
+				<?php checked( 'yes' === $settings['disable_sophi_caching'] ); ?>
+			/>
+			<?php esc_html_e( 'Disable WordPress caching of Sophi content', 'sophi-debug-log' ); ?>
+		</label>
+		<?php
+	}
+
+	/**
 	 * Sanitize debug log checkbox
 	 *
 	 * @param array  $value Sophi plugin settings array.
@@ -119,6 +153,10 @@ class Settings {
 
 		if ( ! isset( $value['enable_debug_log'] ) ) {
 			$value['enable_debug_log'] = 'no';
+		}
+
+		if ( ! isset( $value['disable_sophi_caching'] ) ) {
+			$value['disable_sophi_caching'] = 'no';
 		}
 
 		return $value;
