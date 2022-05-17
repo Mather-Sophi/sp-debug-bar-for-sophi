@@ -162,7 +162,7 @@ class Settings {
 				<?php checked( $is_writable && 'yes' === $settings['enable_debug_log'] ); ?>
 				<?php disabled( ! $is_writable ); ?>
 			/>
-			<?php esc_html_e( 'Enable debug log', 'sophi-debug-log' ); ?>
+			<?php esc_html_e( 'Enable debug log', 'debug-bar-for-sophi' ); ?>
 		</label>
 		<?php
 
@@ -171,10 +171,14 @@ class Settings {
 			echo wp_kses_post(
 				sprintf(
 					/* translators: logs directory path */
-					__( 'The logs directory <code>%s</code> is not writable.', 'sophi-debug-log' ),
+					__( 'The logs directory <code>%s</code> is not writable.', 'debug-bar-for-sophi' ),
 					esc_attr( SOPHI_DEBUG_BAR_LOG_PATH )
 				)
 			);
+			echo '</p>';
+		} else {
+			echo '<p class="description">';
+			echo '<a href="tools.php?page=sophi-logs">' . esc_html__( 'View Logs', 'debug-bar-for-sophi' ) . '</a>';
 			echo '</p>';
 		}
 	}
@@ -196,7 +200,7 @@ class Settings {
 				value="yes"
 				<?php checked( 'yes' === $settings['disable_sophi_caching'] ); ?>
 			/>
-			<?php esc_html_e( 'Disable WordPress caching of Sophi content', 'sophi-debug-log' ); ?>
+			<?php esc_html_e( 'Disable WordPress caching of Sophi content', 'debug-bar-for-sophi' ); ?>
 		</label>
 		<?php
 	}
