@@ -24,6 +24,8 @@
 
 After installing and activating, click the `Debug` button in the admin toolbar.  Within the Debug Bar Panel, click the `Sophi` panel.
 
+Note that the Debug Bar for Sophi plugin does not show the Sophi JavaScript Tracking activity in the Debug Bar as that's something that can be viewed with a browser console's `Network` tab.  Otherwise you should be able to view the Sophi Authentication request/response, Sophi API request/response, and CMS publish/update events in the Debug Bar to help triage your Sophi integration.
+
 ## Support Level
 
 **Active:** The Globe and Mail is actively working on this, and we expect to continue work for the foreseeable future including keeping tested up to the most recent version of WordPress.  Bug reports, feature requests, questions, and pull requests are welcome.

@@ -14,6 +14,8 @@ Extends the Debug Bar plugin for the Sophi.io Site Automation service.
 
 Extends the Debug Bar plugin for the [Sophi.io](https://www.sophi.io/) Site Automation service.  After installing and activating, click the `Debug` button in the admin toolbar.  Within the Debug Bar Panel, click the `Sophi` panel.
 
+Note that the Debug Bar for Sophi plugin does not show the Sophi JavaScript Tracking activity in the Debug Bar as that's something that can be viewed with a browser console's `Network` tab.  Otherwise you should be able to view the Sophi Authentication request/response, Sophi API request/response, and CMS publish/update events in the Debug Bar to help triage your Sophi integration.
+
 == Requirements ==
 
 * PHP 7.4+
