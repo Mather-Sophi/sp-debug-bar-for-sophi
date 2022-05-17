@@ -1,6 +1,6 @@
 {
   "name": "@globeandmail/sophi-debug-bar",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Extends the Debug Bar plugin for the Sophi.io Site Automation service.",
   "homepage": "https://github.com/globeandmail/sophi-debug-bar",
   "bugs": {

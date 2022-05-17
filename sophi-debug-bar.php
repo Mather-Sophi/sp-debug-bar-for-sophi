@@ -3,7 +3,7 @@
  * Plugin Name:       Debug Bar for Sophi
  * Plugin URI:        https://github.com/10up/sophi-debug-bar
  * Description:       Extends the Debug Bar plugin for the Sophi.io Site Automation service.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Requires at least: 5.6
  * Requires PHP:      7.4
  * Author:            10up
@@ -16,7 +16,7 @@
  */
 
 // Useful global constants.
-define( 'SOPHI_DEBUG_BAR_VERSION', '0.1.0' );
+define( 'SOPHI_DEBUG_BAR_VERSION', '0.2.0' );
 define( 'SOPHI_DEBUG_BAR_URL', plugin_dir_url( __FILE__ ) );
 define( 'SOPHI_DEBUG_BAR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SOPHI_DEBUG_BAR_INC', SOPHI_DEBUG_BAR_PATH . 'includes/' );
