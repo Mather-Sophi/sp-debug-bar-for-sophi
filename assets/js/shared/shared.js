@@ -8,9 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	for (let i = 0; i < jsonContainers.length; i++) {
 		const jsonContainer = jsonContainers.item(i);
 		const jsonData = jsonContainer.textContent;
-		const json = JSON.parse(jsonData);
 
-		if (json) {
+		try {
+			const json = JSON.parse(jsonData);
+
 			ReactDOM.render(
 				<ReactJson
 					src={json}
@@ -21,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				/>,
 				jsonContainer,
 			);
+		} catch (e) {
+			/* eslint no-console: ["error", { allow: ["error"] }] */
+			console.error(e.message);
 		}
 	}
 });

@@ -40,8 +40,19 @@ function setup() {
 	// Early initialization of the panel before main debug bar plugin.
 	require_once SOPHI_DEBUG_BAR_PATH . '/includes/class-sophi-debug-bar-panel.php';
 
-	add_action( 'init', $n( 'i18n' ) );
-	add_action( 'init', $n( 'init' ) );
+	i18n();
+	init();
+
+	$settings = Settings::get_settings();
+
+	if ( 'yes' === $settings['disable_sophi_caching'] ) {
+		// Disable caching of SophiWP\SiteAutomation\Request::get()
+		add_filter( 'sophi_bypass_get_cache', '__return_true' );
+
+		// Disable caching in SophiWP\Blocks\SiteAutomationBlock\render_block_callback()
+		add_filter( 'sophi_bypass_curated_posts_cache', '__return_true' );
+	}
+
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
@@ -65,9 +76,7 @@ function setup() {
  * @return void
  */
 function i18n() {
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'sophi-debug-bar' );
-	load_textdomain( 'sophi-debug-bar', WP_LANG_DIR . '/sophi-debug-bar/sophi-debug-bar-' . $locale . '.mo' );
-	load_plugin_textdomain( 'sophi-debug-bar', false, plugin_basename( SOPHI_DEBUG_BAR_PATH ) . '/languages/' );
+	load_plugin_textdomain( 'debug-bar-for-sophi', false, plugin_basename( SOPHI_DEBUG_BAR_PATH ) . '/languages/' );
 }
 
 /**
@@ -293,7 +302,7 @@ function show_notices( $warnings = array(), $type = 'warning' ) {
  * @return void
  */
 function warning_sophi_required() {
-	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'sophi-debug-bar' ) ) );
+	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress plugin', 'debug-bar-for-sophi' ) ) );
 }
 
 /**
@@ -302,7 +311,7 @@ function warning_sophi_required() {
  * @return void
  */
 function warning_sophi_version() {
-	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'sophi-debug-bar' ) ) );
+	show_notices( array( __( 'Sophi Debug Bar requires Sophi for WordPress version 1.0.14 or higher', 'debug-bar-for-sophi' ) ) );
 }
 
 /**
@@ -311,7 +320,7 @@ function warning_sophi_version() {
  * @return void
  */
 function error_debug_bar_required() {
-	show_notices( array( __( 'Sophi Debug Bar requires Debug Bar plugin', 'sophi-debug-bar' ) ), 'error' );
+	show_notices( array( __( 'Sophi Debug Bar requires Debug Bar plugin', 'debug-bar-for-sophi' ) ), 'error' );
 }
 
 /**

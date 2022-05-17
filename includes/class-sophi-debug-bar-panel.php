@@ -45,7 +45,7 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->title( __( 'Sophi', 'sophi-debug-bar' ) );
+		$this->title( __( 'Sophi', 'debug-bar-for-sophi' ) );
 
 		add_filter( 'sophi_request_args', array( $this, 'request_start' ), 10, 2 );
 		add_filter( 'sophi_request_result', array( $this, 'request_end' ), 10, 3 );
@@ -114,16 +114,16 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 							<?php echo esc_html( date_i18n( 'Y-m-d H:i:s', $request->get_start() ) ); ?>
 						</div>
 						<div class="sophi-request-header-item">
-							<?php esc_html_e( 'Response code:', 'sophi-debug-bar' ); ?> <?php echo esc_html( $request->get_response_code() ); ?>
+							<?php esc_html_e( 'Response code:', 'debug-bar-for-sophi' ); ?> <?php echo esc_html( $request->get_response_code() ); ?>
 						</div>
 						<div class="sophi-request-header-item">
 							<?php
 							/* translators: */
-							echo sprintf( esc_html__( 'Duration: %s ms', 'sophi-debug-bar' ), number_format( $request->get_time() * 1000 ) );
+							echo sprintf( esc_html__( 'Duration: %s ms', 'debug-bar-for-sophi' ), number_format( $request->get_time() * 1000 ) );
 							?>
 						</div>
 						<div class="sophi-request-header-item">
-							<?php esc_html_e( 'Context:', 'sophi-debug-bar' ); ?>
+							<?php esc_html_e( 'Context:', 'debug-bar-for-sophi' ); ?>
 							<?php
 							foreach ( $request->get_request_context_compact() as $context_key => $context_value ) {
 								echo '<br><span>' . esc_attr( $context_key ) . ':</span> ';
@@ -134,13 +134,13 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 					</div>
 					<div class="sophi-request-details">
 						<div>
-							<strong><?php esc_html_e( 'Request', 'sophi-debug-bar' ); ?></strong>
+							<strong><?php esc_html_e( 'Request', 'debug-bar-for-sophi' ); ?></strong>
 							<div class="sophi-json-view" id="sophi-request-body-<?php echo esc_attr( $key ); ?>">
 								<?php echo esc_attr( $request->get_request_body() ); ?>
 							</div>
 						</div>
 						<div>
-							<strong><?php esc_html_e( 'Response', 'sophi-debug-bar' ); ?></strong>
+							<strong><?php esc_html_e( 'Response', 'debug-bar-for-sophi' ); ?></strong>
 							<div class="sophi-json-view" id="sophi-response-body-<?php echo esc_attr( $key ); ?>">
 								<?php echo esc_attr( $request->get_response_body() ); ?>
 							</div>

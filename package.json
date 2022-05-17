@@ -1,6 +1,28 @@
 {
-  "name": "sophi-debug-bar",
-  "version": "0.1.0",
+  "name": "@globeandmail/sophi-debug-bar",
+  "version": "0.2.0",
+  "description": "Extends the Debug Bar plugin for the Sophi.io Site Automation service.",
+  "homepage": "https://github.com/globeandmail/sophi-debug-bar",
+  "bugs": {
+    "url": "https://github.com/globeandmail/sophi-debug-bar/issues"
+  },
+  "license": "GPL-2.0-or-later",
+  "author": {
+    "name": "10up",
+    "email": "opensource@10up.com",
+    "url": "https://10up.com"
+  },
+  "contributors": [
+    {
+      "name": "The Globe and Mail",
+      "email": "info@sophi.io",
+      "url": "https://www.sophi.io"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/globeandmail/sophi-debug-bar"
+  },
   "scripts": {
     "archive": "composer install --no-dev && npm run build && composer archive --file=sophi-debug-bar -f zip",
     "clean-dist": "rm -rf ./dist",
@@ -9,7 +31,7 @@
     "lint-js": "10up-toolkit lint-js",
     "lint-php": "./vendor/bin/phpcs",
     "lint-style": "10up-toolkit lint-style",
-    "makepot": "wpi18n makepot --domain-path languages --pot-file sophi-debug-bar.pot --type plugin --main-file sophi-debug-bar.php --exclude bin,dist,node_modules,vendor",
+    "makepot": "wpi18n makepot --domain-path languages --pot-file debug-bar-for-sophi.pot --type plugin --main-file sophi-debug-bar.php --exclude bin,dist,node_modules,vendor",
     "prepare": "husky install",
     "start": "npm run watch",
     "watch": "10up-toolkit watch --port=5010 --hot"
