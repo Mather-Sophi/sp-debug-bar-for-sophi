@@ -98,8 +98,15 @@ class Settings {
 			$current = reset( $dates );
 		}
 
+		$log_file = trailingslashit( SOPHI_DEBUG_BAR_LOG_PATH ) . "sophi-{$current}.log";
+
+		if ( ! file_exists( $log_file ) ) {
+			esc_html_e( 'There is no log from Sophi.io available yet.', 'debug-bar-for-sophi' );
+			return;
+		}
+
 		//phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-		$log_content = file_get_contents( trailingslashit( SOPHI_DEBUG_BAR_LOG_PATH ) . "sophi-{$current}.log" );
+		$log_content = file_get_contents( $log_file );
 
 		?>
 		<div class="wrap">
@@ -111,7 +118,7 @@ class Settings {
 					<?php endforeach; ?>
 				</select>
 				<?php wp_nonce_field( 'sophi-logs' ); ?>
-				<button type="submit" class="button">Show</button>
+				<button type="submit" class="button"><?php esc_html_e( 'Show', 'debug-bar-for-sophi' ); ?></button>
 			</form>
 
 			<pre style="white-space: pre-wrap; word-wrap: break-word;"><?php echo wp_kses_post( $log_content ); ?></pre>
