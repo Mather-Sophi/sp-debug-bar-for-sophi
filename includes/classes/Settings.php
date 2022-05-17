@@ -25,6 +25,8 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'fields' ), 20 );
 
 		add_filter( 'sanitize_option_' . SETTINGS_GROUP, array( $this, 'sanitize' ), 10, 2 );
+
+		add_action( 'admin_menu', array( $this, 'logs_menu' ) );
 	}
 
 	/**
@@ -55,6 +57,66 @@ class Settings {
 			SETTINGS_GROUP,
 			'debug'
 		);
+	}
+
+	/**
+	 * Add logs page under Tools
+	 *
+	 * @return void
+	 */
+	public function logs_menu() {
+		add_management_page(
+			__( 'Sophi Logs', 'debug-bar-for-sophi' ),
+			__( 'Sophi Logs', 'debug-bar-for-sophi' ),
+			'manage_options',
+			'sophi-logs',
+			array( $this, 'logs_page' )
+		);
+	}
+
+	/**
+	 * Render Sophi logs page
+	 *
+	 * @return void
+	 */
+	public function logs_page() {
+		$files = glob( trailingslashit( SOPHI_DEBUG_BAR_LOG_PATH ) . 'sophi-*.log' );
+		$dates = array();
+
+		foreach ( $files as $file ) {
+			if ( preg_match( '/.*?sophi-([\d\-]+)\.log/', $file, $match ) ) {
+				$dates[] = $match[1];
+			}
+		}
+
+		$dates = array_reverse( $dates );
+
+		if ( isset( $_REQUEST['date'] ) ) {
+			check_admin_referer( 'sophi-logs' );
+			$current = sanitize_file_name( $_REQUEST['date'] );
+		} else {
+			$current = reset( $dates );
+		}
+
+		//phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$log_content = file_get_contents( trailingslashit( SOPHI_DEBUG_BAR_LOG_PATH ) . "sophi-{$current}.log" );
+
+		?>
+		<div class="wrap">
+			<h1><?php esc_html_e( 'Sophi Logs' ); ?></h1>
+			<form method="post" action="">
+				<select name="date" id="sophi_logs_date">
+					<?php foreach ( $dates as $date ) : ?>
+						<option value="<?php echo esc_attr( $date ); ?>" <?php echo selected( $date === $current ); ?>><?php echo esc_html( "sophi-{$date}.log" ); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<?php wp_nonce_field( 'sophi-logs' ); ?>
+				<button type="submit" class="button">Show</button>
+			</form>
+
+			<pre style="white-space: pre-wrap; word-wrap: break-word;"><?php echo wp_kses_post( $log_content ); ?></pre>
+		</div>
+		<?php
 	}
 
 	/**
