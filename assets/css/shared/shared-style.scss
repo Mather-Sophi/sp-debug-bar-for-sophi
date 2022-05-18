@@ -5,6 +5,7 @@
 @import "../variables";
 
 .sophi {
+
 	&-request {
 		background-color: $white;
 		margin: 1em 0;
@@ -27,8 +28,6 @@
 			padding-top: 1em;
 
 			& > div {
-				display: inline-block;
-				width: 50%;
 				flex-basis: 50%;
 
 				&:first-child {
@@ -43,10 +42,11 @@
 	}
 
 	&-json-view {
+
 		& > pre {
+			background-color: rgba(0, 0, 0, 0.05);
 			white-space: pre-wrap;
 			word-wrap: break-word;
-			background-color: rgba(0, 0, 0, 0.05);
 		}
 	}
 }
