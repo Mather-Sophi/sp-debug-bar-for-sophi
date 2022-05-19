@@ -173,6 +173,12 @@ class Settings {
 		</label>
 		<?php
 
+		if ( $is_writable && 'yes' === $settings['enable_debug_log'] ) {
+			echo '<p class="description">';
+			echo '<a href="tools.php?page=sophi-logs">' . esc_html__( 'View Logs', 'debug-bar-for-sophi' ) . '</a>';
+			echo '</p>';
+		}
+
 		if ( ! $is_writable ) {
 			echo '<p class="description">';
 			echo wp_kses_post(
@@ -182,10 +188,6 @@ class Settings {
 					esc_attr( SOPHI_DEBUG_BAR_LOG_PATH )
 				)
 			);
-			echo '</p>';
-		} else {
-			echo '<p class="description">';
-			echo '<a href="tools.php?page=sophi-logs">' . esc_html__( 'View Logs', 'debug-bar-for-sophi' ) . '</a>';
 			echo '</p>';
 		}
 	}
