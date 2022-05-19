@@ -37,14 +37,14 @@ class Settings {
 	public function fields() {
 		add_settings_section(
 			'debug',
-			__( 'Debug', 'debug-bar-for-sophi' ),
+			__( 'Debug Bar Settings', 'debug-bar-for-sophi' ),
 			'',
 			SETTINGS_GROUP
 		);
 
 		add_settings_field(
 			'enable_debug_log',
-			__( 'Debug log', 'debug-bar-for-sophi' ),
+			__( 'Debug logging', 'debug-bar-for-sophi' ),
 			array( $this, 'render_debug_log_field' ),
 			SETTINGS_GROUP,
 			'debug'
@@ -65,9 +65,17 @@ class Settings {
 	 * @return void
 	 */
 	public function logs_menu() {
+		$settings    = $this->get_settings();
+		$is_writable = wp_is_writable( SOPHI_DEBUG_BAR_LOG_PATH );
+
+		// Don't add link if logs are disabled or directory not writable.
+		if ( 'yes' !== $settings['enable_debug_log'] || ! $is_writable ) {
+			return;
+		}
+
 		add_management_page(
-			__( 'Sophi Logs', 'debug-bar-for-sophi' ),
-			__( 'Sophi Logs', 'debug-bar-for-sophi' ),
+			__( 'Sophi.io Logs', 'debug-bar-for-sophi' ),
+			__( 'Sophi.io Logs', 'debug-bar-for-sophi' ),
 			'manage_options',
 			'sophi-logs',
 			array( $this, 'logs_page' )
@@ -110,7 +118,7 @@ class Settings {
 
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Sophi Logs' ); ?></h1>
+			<h1><?php esc_html_e( 'Sophi.io Logs', 'debug-bar-for-sophi' ); ?></h1>
 			<form method="post" action="">
 				<select name="date" id="sophi_logs_date">
 					<?php foreach ( $dates as $date ) : ?>
@@ -169,9 +177,15 @@ class Settings {
 				<?php checked( $is_writable && 'yes' === $settings['enable_debug_log'] ); ?>
 				<?php disabled( ! $is_writable ); ?>
 			/>
-			<?php esc_html_e( 'Enable debug log', 'debug-bar-for-sophi' ); ?>
+			<?php esc_html_e( 'Display verbose logging output from Sophi Authentication, Sophi API requests, and CMS publishing events', 'debug-bar-for-sophi' ); ?>
 		</label>
 		<?php
+
+		if ( $is_writable && 'yes' === $settings['enable_debug_log'] ) {
+			echo '<p class="description">';
+			echo '<a href="tools.php?page=sophi-logs">' . esc_html__( 'View Logs', 'debug-bar-for-sophi' ) . '</a>';
+			echo '</p>';
+		}
 
 		if ( ! $is_writable ) {
 			echo '<p class="description">';
@@ -182,10 +196,6 @@ class Settings {
 					esc_attr( SOPHI_DEBUG_BAR_LOG_PATH )
 				)
 			);
-			echo '</p>';
-		} else {
-			echo '<p class="description">';
-			echo '<a href="tools.php?page=sophi-logs">' . esc_html__( 'View Logs', 'debug-bar-for-sophi' ) . '</a>';
 			echo '</p>';
 		}
 	}
