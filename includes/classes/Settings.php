@@ -27,6 +27,9 @@ class Settings {
 		add_filter( 'sanitize_option_' . SETTINGS_GROUP, array( $this, 'sanitize' ), 10, 2 );
 
 		add_action( 'admin_menu', array( $this, 'logs_menu' ) );
+
+		add_filter( 'plugin_action_links_' . SOPHI_DEBUG_BAR_PLUGIN, array( $this, 'action_links' ) );
+
 	}
 
 	/**
@@ -243,5 +246,21 @@ class Settings {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Add setting page to plugin action links.
+	 *
+	 * @param array $actions Plugin actions.
+	 * @return array
+	 */
+	public function action_links( $actions = array() ) {
+		$links = array(
+			'<a href="' . admin_url( 'options-general.php?page=sophi' ) . '">' . __( 'Settings', 'debug-bar-for-sophi' ) . '</a>',
+		);
+
+		$actions = array_merge( $links, $actions );
+
+		return $actions;
 	}
 }
