@@ -44,7 +44,7 @@ class Settings {
 
 		add_settings_field(
 			'enable_debug_log',
-			__( 'Debug log', 'debug-bar-for-sophi' ),
+			__( 'Debug logging', 'debug-bar-for-sophi' ),
 			array( $this, 'render_debug_log_field' ),
 			SETTINGS_GROUP,
 			'debug'
@@ -169,7 +169,7 @@ class Settings {
 				<?php checked( $is_writable && 'yes' === $settings['enable_debug_log'] ); ?>
 				<?php disabled( ! $is_writable ); ?>
 			/>
-			<?php esc_html_e( 'Enable debug log', 'debug-bar-for-sophi' ); ?>
+			<?php esc_html_e( 'Display verbose logging output from Sophi Authentication, Sophi API requests, and CMS publishing events', 'debug-bar-for-sophi' ); ?>
 		</label>
 		<?php
 
