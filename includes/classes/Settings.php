@@ -65,6 +65,14 @@ class Settings {
 	 * @return void
 	 */
 	public function logs_menu() {
+		$settings    = $this->get_settings();
+		$is_writable = wp_is_writable( SOPHI_DEBUG_BAR_LOG_PATH );
+
+		// Don't add link if logs are disabled or directory not writable.
+		if ( 'yes' !== $settings['enable_debug_log'] || ! $is_writable ) {
+			return;
+		}
+
 		add_management_page(
 			__( 'Sophi Logs', 'debug-bar-for-sophi' ),
 			__( 'Sophi Logs', 'debug-bar-for-sophi' ),
