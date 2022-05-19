@@ -40,14 +40,10 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "10up-toolkit": "^3.0.0",
-    "husky": "^7.0.4",
+    "10up-toolkit": "^4.0.0",
+    "husky": "^8.0.1",
     "node-wp-i18n": "^1.2.6",
-    "react-dom": "^18.1.0",
     "react-json-view": "^1.21.3"
-  },
-  "dependencies": {
-    "prop-types": "^15.7.2"
   },
   "10up-toolkit": {
     "entry": {
