@@ -37,7 +37,7 @@ class Settings {
 	public function fields() {
 		add_settings_section(
 			'debug',
-			__( 'Debug', 'debug-bar-for-sophi' ),
+			__( 'Debug Bar Settings', 'debug-bar-for-sophi' ),
 			'',
 			SETTINGS_GROUP
 		);
