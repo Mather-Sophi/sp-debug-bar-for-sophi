@@ -118,7 +118,7 @@ class Settings {
 
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Sophi.io Logs' ); ?></h1>
+			<h1><?php esc_html_e( 'Sophi.io Logs', 'debug-bar-for-sophi' ); ?></h1>
 			<form method="post" action="">
 				<select name="date" id="sophi_logs_date">
 					<?php foreach ( $dates as $date ) : ?>
