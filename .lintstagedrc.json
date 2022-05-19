@@ -1,5 +1,5 @@
 {
-    "*.css": [
+    "*.{css,scss}": [
       "10up-toolkit lint-style"
     ],
     "*.js": [
