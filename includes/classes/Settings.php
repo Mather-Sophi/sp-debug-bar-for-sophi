@@ -74,8 +74,8 @@ class Settings {
 		}
 
 		add_management_page(
-			__( 'Sophi Logs', 'debug-bar-for-sophi' ),
-			__( 'Sophi Logs', 'debug-bar-for-sophi' ),
+			__( 'Sophi.io Logs', 'debug-bar-for-sophi' ),
+			__( 'Sophi.io Logs', 'debug-bar-for-sophi' ),
 			'manage_options',
 			'sophi-logs',
 			array( $this, 'logs_page' )
@@ -118,7 +118,7 @@ class Settings {
 
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Sophi Logs' ); ?></h1>
+			<h1><?php esc_html_e( 'Sophi.io Logs' ); ?></h1>
 			<form method="post" action="">
 				<select name="date" id="sophi_logs_date">
 					<?php foreach ( $dates as $date ) : ?>
