@@ -11,7 +11,9 @@
 * PHP 7.4+
 * WordPress 5.6+
 * [Sophi](https://wordpress.org/plugins/sophi/) 1.1.0+
-* [Debug Bar](https://wordpress.org/plugins/debug-bar/) 1.0+ (note that this is already included on [WordPress VIP](https://wpvip.com/))
+* [Debug Bar](https://wordpress.org/plugins/debug-bar/) 1.0+
+  * The Debug Bar for Sophi plugin has been tested up to Debug Bar version 1.1.3, compatibility with later versions is not guaranteed
+  * This plugin is already included on [WordPress VIP](https://wpvip.com/)
 
 ## Installation
 
