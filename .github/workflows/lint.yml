@@ -22,6 +22,11 @@ jobs:
         uses: tj-actions/changed-files@v18.7
         with:
           files: |
+            package.json
+            package-lock.json
+            .eslintignore
+            .eslintrc.json
+            phpcs.xml
             **/*.css
             **/*.js
             **/*.php
