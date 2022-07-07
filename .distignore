@@ -16,6 +16,7 @@
 /.lintstagedrc.json
 /.npmrc
 /.nvmrc
+/.whitesource
 /CHANGELOG.md
 /CODE_OF_CONDUCT.md
 /composer.json
@@ -27,3 +28,4 @@
 /package.json
 /phpcs.xml
 /README.md
+/renovate.json
