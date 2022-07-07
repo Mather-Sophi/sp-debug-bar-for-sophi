@@ -12,7 +12,7 @@ The following individuals are responsible for curating the list of issues, respo
 
 Thank you to all the people who have already contributed to this repository via bug reports, code, design, ideas, project management, translation, testing, etc.
 
-[Max Lyuchin (@cadic)](https://github.com/cadic), [Jeffrey Paul (@jeffpaul)](https://github.com/jeffpaul), [Dharmesh Patel (@iamdharmesh)](https://github.com/iamdharmesh).
+[Max Lyuchin (@cadic)](https://github.com/cadic), [Jeffrey Paul (@jeffpaul)](https://github.com/jeffpaul), [Dharmesh Patel (@iamdharmesh)](https://github.com/iamdharmesh), [Yazan Mufleh (@YMufleh)](https://github.com/YMufleh).
 
 ## Libraries
 
