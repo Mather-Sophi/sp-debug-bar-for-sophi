@@ -1,5 +1,5 @@
 === Debug Bar for Sophi ===
-Contributors:      10up, sophidev
+Contributors:      10up, sophidev, cadic, jeffpaul
 Tags:              Sophi, Debug Bar
 Requires at least: 5.6
 Tested up to:      6.0
