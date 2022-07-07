@@ -10,11 +10,11 @@ Contributing isn't just writing code - it's anything that improves the project. 
 
 ### Reporting bugs
 
-If you're running into an issue, please take a look through [existing issues](https://github.com/globeandmail/sophi-debug-bar/issues) and [open a new one](https://github.com/globeandmail/sophi-debug-bar/issues/new) if needed.  If you're able, include steps to reproduce, environment information, and screenshots/screencasts as relevant.
+If you're running into an issue, please take a look through [existing issues](https://github.com/globeandmail/debug-bar-for-sophi/issues) and [open a new one](https://github.com/globeandmail/debug-bar-for-sophi/issues/new) if needed.  If you're able, include steps to reproduce, environment information, and screenshots/screencasts as relevant.
 
 ### Suggesting enhancements
 
-New features and enhancements are also managed via [issues](https://github.com/globeandmail/sophi-debug-bar/issues).
+New features and enhancements are also managed via [issues](https://github.com/globeandmail/debug-bar-for-sophi/issues).
 
 ### Pull requests
 
@@ -38,15 +38,15 @@ intainers are accurate.
 1. Merge: Make a non-fast-forward merge from your release branch to `develop` (or merge the pull request), then do the same for `develop` into `trunk` (`git checkout trunk && git merge --no-ff develop`). `trunk` contains the stable development version.
 1. Test: While still on the `trunk` branch, test for functionality locally.
 1. Push: Push your `trunk` branch to GitHub (e.g. `git push origin trunk`).
-1. Release: Create a [new release](https://github.com/globeandmail/sophi-debug-bar/releases/new), naming the tag and the release with the new version number, and targeting the `trunk` branch. Paste the changelog from `CHANGELOG.md` into the body of the release and include a link to the closed issues on the [milestone](https://github.com/globeandmail/sophi-debug-bar/milestone/#?closed=1).
-1. SVN: Wait for the [GitHub Action](https://github.com/globeandmail/sophi-debug-bar/actions) to finish deploying to the WordPress.org repository. If all goes well, users with SVN commit access for that plugin will receive an emailed diff of changes.
+1. Release: Create a [new release](https://github.com/globeandmail/debug-bar-for-sophi/releases/new), naming the tag and the release with the new version number, and targeting the `trunk` branch. Paste the changelog from `CHANGELOG.md` into the body of the release and include a link to the closed issues on the [milestone](https://github.com/globeandmail/debug-bar-for-sophi/milestone/#?closed=1).
+1. SVN: Wait for the [GitHub Action](https://github.com/globeandmail/debug-bar-for-sophi/actions) to finish deploying to the WordPress.org repository. If all goes well, users with SVN commit access for that plugin will receive an emailed diff of changes.
 1. Check WordPress.org: Ensure that the changes are live on https://wordpress.org/plugins/debug-bar-for-sophi/. This may take a few minutes.
-1. Close milestone: Edit the [milestone](https://github.com/globeandmail/sophi-debug-bar/milestone/#) with release date (in the `Due date (optional)` field) and link to GitHub release (in the `Description` field), then close the milestone.
+1. Close milestone: Edit the [milestone](https://github.com/globeandmail/debug-bar-for-sophi/milestone/#) with release date (in the `Due date (optional)` field) and link to GitHub release (in the `Description` field), then close the milestone.
 1. Punt incomplete items: If any open issues or PRs which were milestoned for `X.Y.Z` do not make it into the release, update their milestone to `X.Y.Z+1`, `X.Y+1.0`, `X+1.0.0` or `Future Release`.
 1. Test sites: Check the Sophi test sites to ensure the new version has been deployed there.
 
 ### What to do if things go wrong
 
-If you run into issues during the release process and things have NOT fully deployed to WordPress.org / npm / whatever external-to-GitHub location that we might be publishing to, then the best thing to do will be to delete any Tag (e.g., https://github.com/globeandmail/sophi-debug-bar/releases/tag/TAGNAME) or Release that's been created, research what's wrong, and once things are resolved work on re-tagging and re-releasing on GitHub and publishing externally where needed.
+If you run into issues during the release process and things have NOT fully deployed to WordPress.org / npm / whatever external-to-GitHub location that we might be publishing to, then the best thing to do will be to delete any Tag (e.g., https://github.com/globeandmail/debug-bar-for-sophi/releases/tag/TAGNAME) or Release that's been created, research what's wrong, and once things are resolved work on re-tagging and re-releasing on GitHub and publishing externally where needed.
 
 If you run into issues during the release process and things HAVE deployed to WordPress.org / npm / whatever external-to-GitHub location that we might be publishing to, then the best thing to do will be to research what's wrong and once things are resolved work on a patch release and tag on GitHub and publishing externally where needed.  At the top of the changelog / release notes it's best to note that its a hotfix to resolve whatever issues were found after the previous release.
