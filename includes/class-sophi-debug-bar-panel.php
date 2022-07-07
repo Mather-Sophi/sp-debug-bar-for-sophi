@@ -136,13 +136,13 @@ class SophiDebugBarPanel extends \Debug_Bar_Panel {
 						<div>
 							<strong><?php esc_html_e( 'Request', 'debug-bar-for-sophi' ); ?></strong>
 							<div class="sophi-json-view" id="sophi-request-body-<?php echo esc_attr( $key ); ?>">
-								<?php echo esc_attr( $request->get_request_body() ); ?>
+								<pre><?php echo esc_attr( $request->get_request_body() ); ?></pre>
 							</div>
 						</div>
 						<div>
 							<strong><?php esc_html_e( 'Response', 'debug-bar-for-sophi' ); ?></strong>
 							<div class="sophi-json-view" id="sophi-response-body-<?php echo esc_attr( $key ); ?>">
-								<?php echo esc_attr( $request->get_response_body() ); ?>
+								<pre><?php echo esc_attr( $request->get_response_body() ); ?></pre>
 							</div>
 						</div>
 					</div>

@@ -4,37 +4,49 @@
  */
 @import "../variables";
 
-.sophi-request {
-	background-color: $white;
-	margin: 1em 0;
-	padding: 1em;
+.sophi {
 
-	&-header {
-		display: flex;
+	&-request {
+		background-color: $white;
+		margin: 1em 0;
+		padding: 1em;
 
-		&-item {
-			padding: 0 1em 0 0;
+		&-header {
+			display: flex;
 
-			&:last-child {
-				padding: 0;
+			&-item {
+				padding: 0 1em 0 0;
+
+				&:last-child {
+					padding: 0;
+				}
 			}
+		}
+
+		&-details {
+			display: flex;
+			padding-top: 1em;
+
+			& > div {
+				flex-basis: 50%;
+
+				&:first-child {
+					padding-right: 1em;
+				}
+			}
+		}
+
+		&-error {
+			background-color: $error;
 		}
 	}
 
-	&-details {
-		display: flex;
-		padding-top: 1em;
+	&-json-view {
 
-		& > div {
-			flex: 0 0 50%;
-
-			&:first-child {
-				padding-right: 1em;
-			}
+		& > pre {
+			background-color: rgba(0 0 0 / 5%);
+			white-space: pre-wrap;
+			word-wrap: break-word;
 		}
-	}
-
-	&-error {
-		background-color: $error;
 	}
 }

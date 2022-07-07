@@ -21,7 +21,9 @@ class Request extends Item {
 	 * @return void
 	 */
 	public function set_request( $args ) {
-		$this->set_request_body( $args['body'] );
+		if ( isset( $args['body'] ) ) {
+			$this->set_request_body( $args['body'] );
+		}
 	}
 
 	/**

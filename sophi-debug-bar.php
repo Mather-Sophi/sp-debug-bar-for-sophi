@@ -19,6 +19,7 @@
 define( 'SOPHI_DEBUG_BAR_VERSION', '0.2.0' );
 define( 'SOPHI_DEBUG_BAR_URL', plugin_dir_url( __FILE__ ) );
 define( 'SOPHI_DEBUG_BAR_PATH', plugin_dir_path( __FILE__ ) );
+define( 'SOPHI_DEBUG_BAR_PLUGIN', plugin_basename( __FILE__ ) );
 define( 'SOPHI_DEBUG_BAR_INC', SOPHI_DEBUG_BAR_PATH . 'includes/' );
 $upload_dir = wp_upload_dir( null, false );
 define( 'SOPHI_DEBUG_BAR_LOG_PATH', $upload_dir['basedir'] . '/sophi-logs' );
