@@ -37,7 +37,7 @@
     "watch": "10up-toolkit watch --port=5010 --hot"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
   "devDependencies": {
     "10up-toolkit": "4.1.2",
