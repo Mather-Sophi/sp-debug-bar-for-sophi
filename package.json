@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "10up-toolkit": "4.2.2",
-    "husky": "8.0.1",
+    "husky": "8.0.3",
     "node-wp-i18n": "1.2.6",
     "react-json-view": "1.21.3"
   },
